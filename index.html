@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Silent Step – Australian support for people experiencing domestic and family violence. Find help, resources, and crisis contacts across Australia." />
+  <!-- Prevent search engines from caching this page for safety -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Silent Step | Australian Domestic Violence Support</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ============================================================
+       SAFETY EXIT BUTTON (always visible)
+  ============================================================ -->
+  <button id="safetyExit" class="safety-exit" aria-label="Quickly leave this website" title="Click to quickly leave this site">
+    <span class="exit-icon">✕</span>
+    <span class="exit-label">Quick Exit</span>
+  </button>
+
+  <!-- ============================================================
+       BROWSING SAFETY BANNER
+  ============================================================ -->
+  <div class="safety-banner" id="safetyBanner">
+    <div class="container">
+      <span class="safety-banner__icon">🔒</span>
+      <span class="safety-banner__text">
+        <strong>Your safety online matters.</strong> Use a private/incognito window for extra safety.
+        <a href="#browsing-safety" class="safety-banner__link">Learn more</a>
+      </span>
+      <button class="safety-banner__close" aria-label="Close safety banner" id="closeBanner">✕</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HEADER / NAVIGATION
+  ============================================================ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="header__logo" aria-label="Silent Step Home">
+        <span class="logo-mark"></span>
+        <span class="logo-text">Silent Step</span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav__menu" id="navMenu" role="list">
+          <li><a href="#get-help" class="nav__link">Get Help Now</a></li>
+          <li><a href="#about" class="nav__link">About Us</a></li>
+          <li><a href="#signs" class="nav__link">Recognise Abuse</a></li>
+          <li><a href="#safety-planning" class="nav__link">Safety Planning</a></li>
+          <li><a href="#resources" class="nav__link">Resources</a></li>
+          <li><a href="tel:1800737732" class="nav__link nav__link--cta">Call 1800RESPECT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section class="hero" aria-labelledby="heroHeading">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__content">
+        <p class="hero__eyebrow">You are not alone</p>
+        <h1 class="hero__heading" id="heroHeading">
+          Every step forward<br />starts in silence.
+        </h1>
+        <p class="hero__sub">
+          Silent Step is a safe space for people in Australia experiencing domestic
+          and family violence. Whether you're ready to reach out or just looking for
+          information, we're here for you — without judgement.
+        </p>
+        <div class="hero__actions">
+          <a href="#get-help" class="btn btn--primary">Get help now</a>
+          <a href="#about" class="btn btn--outline">Learn more</a>
+        </div>
+      </div>
+      <div class="hero__scroll" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CRISIS HELPLINES (GET HELP NOW)
+    ============================================================ -->
+    <section class="crisis" id="get-help" aria-labelledby="crisisHeading">
+      <div class="container">
+        <div class="section-header section-header--light">
+          <span class="section-tag">24/7 Support</span>
+          <h2 class="section-title" id="crisisHeading">Get Help Right Now</h2>
+          <p class="section-subtitle">
+            If you're in immediate danger, call <strong>000</strong>. These services are free,
+            confidential, and available around the clock.
+          </p>
+        </div>
+
+        <div class="crisis__emergency">
+          <a href="tel:000" class="crisis__emergency-card">
+            <span class="crisis__emergency-icon">🚨</span>
+            <div>
+              <strong>Police / Ambulance / Fire</strong>
+              <span class="crisis__number">000</span>
+              <small>Immediate danger – call now</small>
+            </div>
+          </a>
+        </div>
+
+        <div class="helplines-grid">
+
+          <a href="tel:1800737732" class="helpline-card helpline-card--featured">
+            <div class="helpline-card__badge">Recommended</div>
+            <div class="helpline-card__icon">📞</div>
+            <h3 class="helpline-card__name">1800RESPECT</h3>
+            <p class="helpline-card__number">1800 737 732</p>
+            <p class="helpline-card__desc">National sexual assault, family and domestic violence counselling service. Free, confidential, 24/7.</p>
+            <span class="helpline-card__tag">Call · Chat · Text</span>
+          </a>
+
+          <a href="tel:131114" class="helpline-card">
+            <div class="helpline-card__icon">💙</div>
+            <h3 class="helpline-card__name">Lifeline</h3>
+            <p class="helpline-card__number">13 11 14</p>
+            <p class="helpline-card__desc">Crisis support and suicide prevention. Available 24/7 for anyone in crisis or distress.</p>
+            <span class="helpline-card__tag">Call · Chat · Text</span>
+          </a>
+
+          <a href="tel:1300766491" class="helpline-card">
+            <div class="helpline-card__icon">👨‍👩‍👧</div>
+            <h3 class="helpline-card__name">Men's Referral Service</h3>
+            <p class="helpline-card__number">1300 766 491</p>
+            <p class="helpline-card__desc">Counselling, information and referrals for men who use or experience violence. Free, 24/7.</p>
+            <span class="helpline-card__tag">Call</span>
+          </a>
+
+          <a href="tel:1800551800" class="helpline-card">
+            <div class="helpline-card__icon">🧒</div>
+            <h3 class="helpline-card__name">Kids Helpline</h3>
+            <p class="helpline-card__number">1800 55 1800</p>
+            <p class="helpline-card__desc">Free, private and confidential 24/7 phone and online counselling service for young people aged 5–25.</p>
+            <span class="helpline-card__tag">Call · Chat</span>
+          </a>
+
+          <a href="tel:1800200526" class="helpline-card">
+            <div class="helpline-card__icon">🌈</div>
+            <h3 class="helpline-card__name">QLife</h3>
+            <p class="helpline-card__number">1800 184 527</p>
+            <p class="helpline-card__desc">LGBTIQ+ peer support and referral service. Available 3pm–midnight, 365 days a year.</p>
+            <span class="helpline-card__tag">Call · Chat</span>
+          </a>
+
+          <a href="tel:131450" class="helpline-card">
+            <div class="helpline-card__icon">🌏</div>
+            <h3 class="helpline-card__name">Translating &amp; Interpreting</h3>
+            <p class="helpline-card__number">131 450</p>
+            <p class="helpline-card__desc">Free interpreting service available 24/7 for speakers of languages other than English. Access any service.</p>
+            <span class="helpline-card__tag">Free · 24/7</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT
+    ============================================================ -->
+    <section class="about" id="about" aria-labelledby="aboutHeading">
+      <div class="container about__grid">
+        <div class="about__image" aria-hidden="true">
+          <div class="about__image-block about__image-block--1"></div>
+          <div class="about__image-block about__image-block--2"></div>
+          <div class="about__image-stat">
+            <span class="about__image-stat-number">1 in 4</span>
+            <span class="about__image-stat-label">Australian women experience violence from a partner</span>
+          </div>
+        </div>
+        <div class="about__text">
+          <span class="section-tag">Who We Are</span>
+          <h2 class="section-title" id="aboutHeading">A safe step forward, together</h2>
+          <p>
+            Silent Step was founded to provide Australians affected by domestic and family
+            violence (DFV) with a trusted, easy-to-access hub of information, resources and
+            connection to professional support services.
+          </p>
+          <p>
+            Domestic violence is not only physical. It includes emotional, psychological,
+            financial, sexual and technology-facilitated abuse. It affects people of all
+            genders, ages, cultures, and backgrounds.
+          </p>
+          <p>
+            Our mission is simple: <strong>no one should have to face this alone.</strong>
+            We believe in your strength, your safety, and your right to live free from fear.
+          </p>
+          <div class="about__values">
+            <div class="about__value">
+              <span class="about__value-icon">🛡️</span>
+              <div>
+                <strong>Safe & Confidential</strong>
+                <p>Everything here is designed with your safety and privacy in mind.</p>
+              </div>
+            </div>
+            <div class="about__value">
+              <span class="about__value-icon">🤝</span>
+              <div>
+                <strong>Non-Judgmental</strong>
+                <p>We support people of all backgrounds, genders and circumstances.</p>
+              </div>
+            </div>
+            <div class="about__value">
+              <span class="about__value-icon">🌿</span>
+              <div>
+                <strong>Trauma-Informed</strong>
+                <p>Our approach is grounded in compassion and evidence-based practice.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RECOGNISE ABUSE
+    ============================================================ -->
+    <section class="signs" id="signs" aria-labelledby="signsHeading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Recognise the Signs</span>
+          <h2 class="section-title" id="signsHeading">Types of domestic &amp; family violence</h2>
+          <p class="section-subtitle">
+            Abuse is not always physical. Understanding the different forms can help you
+            recognise what is happening and take the next step.
+          </p>
+        </div>
+        <div class="signs__grid">
+
+          <div class="sign-card">
+            <div class="sign-card__icon sign-card__icon--physical">🤕</div>
+            <h3>Physical Abuse</h3>
+            <ul>
+              <li>Hitting, slapping, punching or kicking</li>
+              <li>Throwing objects or weapons</li>
+              <li>Strangulation or suffocation</li>
+              <li>Denying medical care</li>
+            </ul>
+          </div>
+
+          <div class="sign-card">
+            <div class="sign-card__icon sign-card__icon--emotional">💔</div>
+            <h3>Emotional &amp; Psychological</h3>
+            <ul>
+              <li>Constant criticism, humiliation or name-calling</li>
+              <li>Controlling who you see or where you go</li>
+              <li>Threats to harm you, children or pets</li>
+              <li>Extreme jealousy and possessiveness</li>
+            </ul>
+          </div>
+
+          <div class="sign-card">
+            <div class="sign-card__icon sign-card__icon--financial">💸</div>
+            <h3>Financial Abuse</h3>
+            <ul>
+              <li>Controlling all money and finances</li>
+              <li>Preventing you from working</li>
+              <li>Running up debts in your name</li>
+              <li>Demanding to see all spending</li>
+            </ul>
+          </div>
+
+          <div class="sign-card">
+            <div class="sign-card__icon sign-card__icon--sexual">⚠️</div>
+            <h3>Sexual Abuse</h3>
+            <ul>
+              <li>Forcing sexual activity against your will</li>
+              <li>Reproductive coercion</li>
+              <li>Sharing intimate images without consent</li>
+              <li>Treating you as a sexual object</li>
+            </ul>
+          </div>
+
+          <div class="sign-card">
+            <div class="sign-card__icon sign-card__icon--tech">📱</div>
+            <h3>Technology-Facilitated</h3>
+            <ul>
+              <li>Monitoring your devices and accounts</li>
+              <li>Sharing private images or information</li>
+              <li>Using GPS or spy apps to track you</li>
+              <li>Online harassment and threats</li>
+            </ul>
+          </div>
+
+          <div class="sign-card">
+            <div class="sign-card__icon sign-card__icon--cultural">🌏</div>
+            <h3>Cultural &amp; Spiritual</h3>
+            <ul>
+              <li>Using cultural or religious beliefs to control</li>
+              <li>Forced marriage</li>
+              <li>Isolating from cultural community</li>
+              <li>Denying right to practise faith</li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="signs__note">
+          <p>
+            <strong>Remember:</strong> Abuse is never your fault. The responsibility always
+            lies with the person causing harm. If any of these signs feel familiar,
+            please <a href="#get-help">reach out for support</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SAFETY PLANNING
+    ============================================================ -->
+    <section class="safety-planning" id="safety-planning" aria-labelledby="safetyHeading">
+      <div class="container">
+        <div class="section-header section-header--light">
+          <span class="section-tag">Protect Yourself</span>
+          <h2 class="section-title" id="safetyHeading">Safety Planning</h2>
+          <p class="section-subtitle">
+            A safety plan is a personalised, practical guide to help you protect yourself
+            and your children. It can be adapted at any time.
+          </p>
+        </div>
+        <div class="safety-tabs">
+          <div class="safety-tabs__nav" role="tablist" aria-label="Safety planning sections">
+            <button class="safety-tab active" role="tab" aria-selected="true" aria-controls="tab-home" id="btn-home">At Home</button>
+            <button class="safety-tab" role="tab" aria-selected="false" aria-controls="tab-leaving" id="btn-leaving">Leaving Safely</button>
+            <button class="safety-tab" role="tab" aria-selected="false" aria-controls="tab-after" id="btn-after">After Leaving</button>
+            <button class="safety-tab" role="tab" aria-selected="false" aria-controls="tab-digital" id="btn-digital">Digital Safety</button>
+          </div>
+          <div class="safety-tabs__content">
+
+            <div class="safety-tab-panel active" id="tab-home" role="tabpanel" aria-labelledby="btn-home">
+              <h3>If you're still at home</h3>
+              <ul class="safety-checklist">
+                <li>Identify safe rooms (avoid kitchens, bathrooms or garages where weapons may be present)</li>
+                <li>Memorise important numbers (1800RESPECT: 1800 737 732, a trusted friend, emergency: 000)</li>
+                <li>Alert neighbours, friends or family so they can call for help if needed</li>
+                <li>Know your exits and escape routes from your home</li>
+                <li>Keep a bag of essentials hidden or with a trusted person</li>
+                <li>Teach children a code word that means "go to a safe place"</li>
+                <li>Keep important documents in a safe place (passport, birth certificates, Medicare card)</li>
+              </ul>
+            </div>
+
+            <div class="safety-tab-panel" id="tab-leaving" role="tabpanel" aria-labelledby="btn-leaving">
+              <h3>Planning to leave</h3>
+              <ul class="safety-checklist">
+                <li>Plan the safest time and way to leave (when the abuser is out or asleep)</li>
+                <li>Have emergency cash, cards or valuables ready to take</li>
+                <li>Pack an emergency bag: ID, medication, phone charger, clothes, children's items</li>
+                <li>Contact a DV service to help with safe housing and support</li>
+                <li>Tell a trusted person your plan and check-in schedule</li>
+                <li>Take evidence of abuse if it's safe to do so (photos, medical records)</li>
+                <li>Have your car fuelled and parked for a quick exit</li>
+              </ul>
+            </div>
+
+            <div class="safety-tab-panel" id="tab-after" role="tabpanel" aria-labelledby="btn-after">
+              <h3>After leaving</h3>
+              <ul class="safety-checklist">
+                <li>Apply for an Apprehended Violence Order (AVO) / Domestic Violence Order (DVO)</li>
+                <li>Change locks and security codes at your new location</li>
+                <li>Inform your workplace, school and childcare of the situation</li>
+                <li>Update your address and contact details securely</li>
+                <li>Open a new bank account only you have access to</li>
+                <li>Connect with a local DV service for ongoing support and legal advice</li>
+                <li>Seek counselling and support for yourself and your children</li>
+              </ul>
+            </div>
+
+            <div class="safety-tab-panel" id="tab-digital" role="tabpanel" aria-labelledby="btn-digital" id="browsing-safety">
+              <h3>Staying safe online</h3>
+              <ul class="safety-checklist">
+                <li>Use private/incognito browsing when researching domestic violence (Ctrl+Shift+N or ⌘+Shift+N)</li>
+                <li>Clear your browser history after visiting support websites</li>
+                <li>Change passwords using a device the abuser cannot access</li>
+                <li>Check devices for tracking or spy apps (ask a DV service for help)</li>
+                <li>Review location sharing on your phone and social media accounts</li>
+                <li>Create a new email account on a safe device for confidential communication</li>
+                <li>Be cautious about what you share on social media – location data can be tracked</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        <div class="safety-planning__cta">
+          <p>Need help creating a personalised safety plan?</p>
+          <a href="tel:1800737732" class="btn btn--primary">Talk to 1800RESPECT</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STATE RESOURCES
+    ============================================================ -->
+    <section class="resources" id="resources" aria-labelledby="resourcesHeading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Find Local Help</span>
+          <h2 class="section-title" id="resourcesHeading">Support services by state &amp; territory</h2>
+          <p class="section-subtitle">
+            Select your state or territory to find local support services, legal aid, and safe housing.
+          </p>
+        </div>
+        <div class="state-selector">
+          <label for="stateSelect" class="visually-hidden">Select your state or territory</label>
+          <select id="stateSelect" class="state-select">
+            <option value="">— Select your state or territory —</option>
+            <option value="nsw">New South Wales (NSW)</option>
+            <option value="vic">Victoria (VIC)</option>
+            <option value="qld">Queensland (QLD)</option>
+            <option value="wa">Western Australia (WA)</option>
+            <option value="sa">South Australia (SA)</option>
+            <option value="tas">Tasmania (TAS)</option>
+            <option value="act">Australian Capital Territory (ACT)</option>
+            <option value="nt">Northern Territory (NT)</option>
+          </select>
+        </div>
+
+        <div class="state-resources" id="stateResources">
+          <!-- Populated by JavaScript -->
+          <div class="state-resources__placeholder">
+            <span>👆</span>
+            <p>Select your state above to see local support services</p>
+          </div>
+        </div>
+
+        <div class="resources-legal">
+          <h3>National Legal Resources</h3>
+          <div class="resources-legal__grid">
+            <div class="legal-card">
+              <h4>Legal Aid</h4>
+              <p>Free or low-cost legal advice available in every state. Search "Legal Aid [your state]" or call 1800RESPECT for a referral.</p>
+            </div>
+            <div class="legal-card">
+              <h4>Family Violence Orders</h4>
+              <p>Intervention Orders, Domestic Violence Orders, and Apprehended Violence Orders are available in every state and territory.</p>
+            </div>
+            <div class="legal-card">
+              <h4>Women's Legal Services</h4>
+              <p>Specialised free legal advice for women experiencing domestic and family violence, across all states.</p>
+            </div>
+            <div class="legal-card">
+              <h4>Child Support &amp; Centrelink</h4>
+              <p>If you're leaving a relationship, you may be eligible for financial support. Call Services Australia: 136 150.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SUPPORT STORIES / QUOTE
+    ============================================================ -->
+    <section class="quote-section" aria-label="Support message">
+      <div class="container quote-section__inner">
+        <blockquote>
+          <p>"Leaving was the hardest thing I ever did — and the best. You deserve to feel safe in your own home. You deserve better. Your next step can start today."</p>
+          <footer>— A Silent Step community member</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FOR SUPPORTERS
+    ============================================================ -->
+    <section class="supporters" aria-labelledby="supportersHeading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">For Friends &amp; Family</span>
+          <h2 class="section-title" id="supportersHeading">How to help someone you care about</h2>
+          <p class="section-subtitle">
+            If you're concerned a friend, family member or colleague may be experiencing abuse,
+            here's how you can help.
+          </p>
+        </div>
+        <div class="supporters__grid">
+          <div class="supporter-card">
+            <div class="supporter-card__num">01</div>
+            <h3>Listen without judgement</h3>
+            <p>Create a safe space for them to talk. Believe what they tell you. Don't minimise their experience or pressure them to leave.</p>
+          </div>
+          <div class="supporter-card">
+            <div class="supporter-card__num">02</div>
+            <h3>Ask gently</h3>
+            <p>"I've noticed some things that worry me. Are you okay?" can open a door. Be patient – it may take time for them to open up.</p>
+          </div>
+          <div class="supporter-card">
+            <div class="supporter-card__num">03</div>
+            <h3>Share information safely</h3>
+            <p>Give them the 1800RESPECT number (1800 737 732) discreetly. Offer to help them access services when they're ready.</p>
+          </div>
+          <div class="supporter-card">
+            <div class="supporter-card__num">04</div>
+            <h3>Support their choices</h3>
+            <p>Leaving is complex and can be the most dangerous time. Respect their decisions and keep offering support – don't give ultimatums.</p>
+          </div>
+          <div class="supporter-card">
+            <div class="supporter-card__num">05</div>
+            <h3>Look after yourself too</h3>
+            <p>Supporting someone through DFV can be emotionally exhausting. Reach out to 1800RESPECT yourself for guidance and support.</p>
+          </div>
+          <div class="supporter-card">
+            <div class="supporter-card__num">06</div>
+            <h3>Know the warning signs</h3>
+            <p>Withdrawal from friends and family, unexplained injuries, partner controlling finances or movements, fear of partner's reactions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" id="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#" class="header__logo footer__logo" aria-label="Silent Step Home">
+          <span class="logo-mark"></span>
+          <span class="logo-text">Silent Step</span>
+        </a>
+        <p>A safe space for Australians experiencing domestic and family violence.</p>
+        <p class="footer__emergency">
+          In immediate danger? Call <a href="tel:000"><strong>000</strong></a>
+        </p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#get-help">Get Help Now</a></li>
+            <li><a href="#about">About Silent Step</a></li>
+            <li><a href="#signs">Recognise Abuse</a></li>
+            <li><a href="#safety-planning">Safety Planning</a></li>
+            <li><a href="#resources">State Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Key Numbers</h4>
+          <ul>
+            <li><a href="tel:000">Emergency: 000</a></li>
+            <li><a href="tel:1800737732">1800RESPECT: 1800 737 732</a></li>
+            <li><a href="tel:131114">Lifeline: 13 11 14</a></li>
+            <li><a href="tel:1300766491">Men's Referral: 1300 766 491</a></li>
+            <li><a href="tel:1800551800">Kids Helpline: 1800 55 1800</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Online Safety</h4>
+          <p class="footer__safety-tip">
+            To protect your safety, use a private/incognito browser when visiting this site.
+            Press <kbd>Ctrl+Shift+N</kbd> (Windows) or <kbd>⌘+Shift+N</kbd> (Mac) to open one now.
+          </p>
+          <button class="btn btn--outline btn--sm" id="clearHistory">Clear my visit</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>
+          Silent Step acknowledges Aboriginal and Torres Strait Islander peoples as the
+          traditional custodians of the land on which we operate and pays respect to
+          Elders past, present and emerging.
+        </p>
+        <p class="footer__disclaimer">
+          Silent Step provides information and referrals only. We are not a crisis service.
+          If you are in immediate danger, call <strong>000</strong>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
