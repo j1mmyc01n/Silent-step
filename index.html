@@ -1036,7 +1036,6 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 5
 
       <div class="admin-tabs">
         <button class="admin-tab active" onclick="adminTab('requests',this)">&#128203; Help Requests</button>
-        <button class="admin-tab" onclick="adminTab('donors',this)">&#128155; Donors</button>
         <button class="admin-tab" onclick="adminTab('volunteers',this)">&#128101; Volunteers</button>
         <button class="admin-tab" onclick="adminTab('orders',this)">&#128722; Orders</button>
       </div>
@@ -1045,12 +1044,6 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 5
         <div class="table-wrap"><table>
           <thead><tr><th>Date</th><th>Urgency</th><th>Location</th><th>Description</th><th>Needs</th><th>Status</th></tr></thead>
           <tbody id="requests-tbody"></tbody>
-        </table></div>
-      </div>
-      <div id="admin-donors" class="card" style="display:none;padding:0;overflow:hidden">
-        <div class="table-wrap"><table>
-          <thead><tr><th>Date</th><th>Donor</th><th>Type</th><th>Amount</th><th>Frequency</th><th>Purpose</th></tr></thead>
-          <tbody id="donors-tbody"></tbody>
         </table></div>
       </div>
       <div id="admin-volunteers" class="card" style="display:none;padding:0;overflow:hidden">
@@ -1466,7 +1459,6 @@ function initAdmin() {
       +'<td style="font-size:12px">'+(r.needs.slice(0,2).join(', ')||'—')+(r.needs.length>2?' +more':'')+'</td>'
       +'<td><span class="status-badge s-pending">pending</span></td>'
       +'</tr>';}).join('');
-  document.getElementById('donors-tbody').innerHTML = empty6;
   document.getElementById('volunteers-tbody').innerHTML = DB.volunteers.length===0 ? empty6 :
     DB.volunteers.map(function(v){return '<tr>'
       +'<td>'+new Date(v.created_at).toLocaleDateString()+'</td>'
@@ -1489,7 +1481,7 @@ function initAdmin() {
     }).join('');
 }
 function adminTab(tab,btn) {
-  ['requests','donors','volunteers','orders'].forEach(function(t){ document.getElementById('admin-'+t).style.display=t===tab?'block':'none'; });
+  ['requests','volunteers','orders'].forEach(function(t){ document.getElementById('admin-'+t).style.display=t===tab?'block':'none'; });
   document.querySelectorAll('.admin-tab').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active');
 }
 function showError(wid,mid,msg) { document.getElementById(wid).style.display='flex'; document.getElementById(mid).textContent=msg; }
