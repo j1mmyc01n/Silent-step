@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Silent Step — Support Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:       #080c12;
+    --bg2:      #0d1520;
+    --bg3:      #111d2b;
+    --border:   rgba(255,255,255,0.07);
+    --border2:  rgba(255,255,255,0.12);
+    --text:     #e8edf5;
+    --muted:    #5a6a80;
+    --muted2:   #8090a6;
+    --rose:     #f43f5e;
+    --rose-d:   #4c1020;
+    --rose-bg:  rgba(244,63,94,0.12);
+    --teal:     #14b8a6;
+    --teal-bg:  rgba(20,184,166,0.12);
+    --amber:    #f59e0b;
+    --amber-bg: rgba(245,158,11,0.10);
+    --green:    #22c55e;
+    --green-bg: rgba(34,197,94,0.10);
+    --orange:   #f97316;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  h1, h2, h3, h4 { font-family: 'DM Serif Display', serif; line-height: 1.2; }
+  a { color: inherit; text-decoration: none; }
+  button { cursor: pointer; font-family: inherit; border: none; background: none; }
+  input, textarea, select {
+    font-family: inherit; font-size: 14px;
+    background: var(--bg3); color: var(--text);
+    border: 1px solid var(--border2);
+    border-radius: 10px; padding: 11px 14px;
+    width: 100%; outline: none;
+    transition: border-color .2s;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--teal); }
+  input::placeholder, textarea::placeholder { color: var(--muted); }
+  textarea { resize: vertical; }
+
+/* SAFETY BANNER */
+#safety-banner {
+  background: linear-gradient(90deg, #2a1a05, #1c1205);
+  border-bottom: 1px solid rgba(245,158,11,0.25);
+  padding: 10px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  position: sticky; top: 0; z-index: 200;
+}
+#safety-banner .inner { display: flex; align-items: center; gap: 10px; flex: 1; }
+#safety-banner p { color: #fcd34d; font-size: 13px; }
+#safety-banner strong { color: #fbbf24; }
+#safety-banner kbd {
+  background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 4px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: #fde68a;
+}
+.exit-btn {
+  background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.3);
+  color: #fde68a; font-size: 12px; font-weight: 600; padding: 5px 12px;
+  border-radius: 6px; transition: background .2s; white-space: nowrap;
+}
+.exit-btn:hover { background: rgba(245,158,11,0.35); }
+.close-x { color: #f59e0b; font-size: 18px; padding: 2px 6px; transition: color .2s; }
+.close-x:hover { color: #fff; }
+
+/* HEADER */
+header {
+  background: rgba(8,12,18,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 42px; z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon {
+  background: var(--rose); width: 34px; height: 34px;
+  border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.logo-text .brand { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--text); line-height: 1.1; }
+.logo-text .sub { font-size: 11px; color: var(--muted); }
+nav { display: flex; align-items: center; gap: 4px; }
+.nav-link {
+  padding: 7px 14px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
+  color: var(--muted2); transition: all .2s;
+}
+.nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.nav-link.active { color: var(--text); background: rgba(255,255,255,0.08); }
+.nav-link.cta { background: var(--rose); color: white; font-weight: 600; padding: 7px 16px; }
+.nav-link.cta:hover { background: #fb5373; }
+.hotline-chip {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--rose-bg); border: 1px solid rgba(244,63,94,0.25);
+  color: #fb7185; font-size: 12.5px; font-weight: 600;
+  padding: 6px 12px; border-radius: 8px; transition: background .2s;
+}
+.hotline-chip:hover { background: rgba(244,63,94,0.2); }
+.hamburger { display: none; padding: 8px; color: var(--muted2); font-size: 20px; }
+.mobile-nav {
+  display: none; position: absolute; top: 64px; left: 0; right: 0;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 12px; gap: 4px; flex-direction: column; z-index: 99;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav-link {
+  padding: 10px 14px; border-radius: 8px; font-size: 14px; font-weight: 500;
+  color: var(--muted2); text-align: left; transition: all .2s;
+}
+.mobile-nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.mobile-nav-link.cta { background: var(--rose); color: white; }
+
+/* PAGES */
+.page { display: none; animation: fadeIn .3s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* LAYOUT */
+.section { padding: 72px 0; }
+.section-sm { padding: 40px 0; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.container-sm { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.text-center { text-align: center; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: border-color .2s; }
+.card:hover { border-color: var(--border2); }
+
+/* BADGES */
+.badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid; }
+.badge-teal { background: var(--teal-bg); color: #2dd4bf; border-color: rgba(20,184,166,0.3); }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 22px; border-radius: 10px; font-size: 14px; font-weight: 600;
+  transition: all .2s; border: 1px solid transparent;
+}
+.btn-rose { background: var(--rose); color: white; }
+.btn-rose:hover { background: #fb5373; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(244,63,94,0.3); }
+.btn-teal { background: var(--teal); color: #042f2e; }
+.btn-teal:hover { background: #0dd4c0; transform: translateY(-1px); }
+.btn-ghost { background: rgba(255,255,255,0.05); color: var(--text); border-color: var(--border2); }
+.btn-ghost:hover { background: rgba(255,255,255,0.09); }
+.btn-lg { padding: 14px 28px; font-size: 15.5px; border-radius: 12px; }
+.btn-sm { padding: 7px 14px; font-size: 13px; border-radius: 8px; }
+.btn-full { width: 100%; }
+
+/* HERO */
+.hero {
+  min-height: 560px;
+  background: radial-gradient(ellipse at 70% 20%, rgba(244,63,94,0.12) 0%, transparent 55%),
+              radial-gradient(ellipse at 20% 80%, rgba(20,184,166,0.07) 0%, transparent 45%), var(--bg);
+  padding: 80px 0 96px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--rose-bg); border: 1px solid rgba(244,63,94,0.25);
+  color: #fb7185; font-size: 13px; font-weight: 600; padding: 6px 14px;
+  border-radius: 20px; margin-bottom: 28px;
+}
+.hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); color: var(--text); margin-bottom: 20px; }
+.hero h1 em { color: var(--rose); font-style: normal; }
+.hero h1 .sub { font-family: 'DM Sans', sans-serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 300; color: var(--muted2); display: block; margin-top: 4px; }
+.hero p { color: var(--muted2); font-size: 16px; max-width: 520px; margin-bottom: 36px; line-height: 1.75; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+.hero-hotline { display: inline-flex; align-items: center; gap: 7px; color: #fb7185; font-size: 13.5px; font-weight: 500; }
+.stats-bar { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 28px 0; }
+.stat { text-align: center; }
+.stat-val { font-family: 'DM Serif Display', serif; font-size: 2rem; line-height: 1; margin-bottom: 4px; }
+.stat-label { color: var(--muted); font-size: 12.5px; }
+
+/* HOW IT WORKS */
+.how-card { position: relative; }
+.step-num { font-family: 'DM Serif Display', serif; font-size: 3.5rem; line-height: 1; color: rgba(255,255,255,0.04); position: absolute; top: 16px; right: 20px; }
+.step-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+
+/* FORMS */
+.form-section { padding: 18px 0 6px; border-top: 1px solid var(--border); }
+.form-section:first-child { border-top: none; padding-top: 0; }
+.form-label { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; display: block; }
+.form-hint { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tag-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { padding: 6px 13px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid var(--border2); color: var(--muted2); cursor: pointer; background: transparent; transition: all .15s; }
+.tag:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+.tag.active { background: var(--rose-bg); border-color: rgba(244,63,94,0.4); color: #fb7185; }
+.tag.active-teal { background: var(--teal-bg); border-color: rgba(20,184,166,0.4); color: #2dd4bf; }
+.urgency-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.urgency-btn { padding: 10px 8px; border-radius: 10px; border: 2px solid var(--border2); text-align: center; cursor: pointer; transition: all .15s; background: var(--bg3); }
+.urgency-btn .u-label { font-size: 13px; font-weight: 600; color: var(--muted2); }
+.urgency-btn .u-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.urgency-btn.sel-low { border-color: var(--green); background: var(--green-bg); }
+.urgency-btn.sel-low .u-label { color: #4ade80; }
+.urgency-btn.sel-medium { border-color: var(--amber); background: var(--amber-bg); }
+.urgency-btn.sel-medium .u-label { color: #fcd34d; }
+.urgency-btn.sel-high { border-color: var(--orange); background: rgba(249,115,22,0.1); }
+.urgency-btn.sel-high .u-label { color: #fb923c; }
+.urgency-btn.sel-critical { border-color: var(--rose); background: var(--rose-bg); }
+.urgency-btn.sel-critical .u-label { color: #fb7185; }
+.checkbox-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.checkbox-row input[type=checkbox] { width: auto; accent-color: var(--teal); }
+.checkbox-row label { font-size: 13.5px; color: var(--muted2); cursor: pointer; }
+.alert-box { border-radius: 10px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 10px; margin-bottom: 16px; }
+.alert-danger { background: rgba(244,63,94,0.08); border: 1px solid rgba(244,63,94,0.25); }
+.alert-danger p, .alert-danger a { color: #fb7185; font-size: 13px; }
+.alert-info { background: rgba(20,184,166,0.08); border: 1px solid rgba(20,184,166,0.2); }
+.alert-info p { color: #5eead4; font-size: 12.5px; }
+.success-screen { min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 48px 24px; text-align: center; }
+.success-icon { width: 72px; height: 72px; background: rgba(34,197,94,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 24px; }
+
+/* RESOURCES */
+.resource-card { border-radius: 14px; }
+.availability-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,0.5); flex-shrink: 0; margin-top: 5px; }
+.availability-dot.offline { background: var(--muted); box-shadow: none; }
+.resource-meta { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 12px; border-top: 1px solid var(--border); margin-top: 12px; }
+.resource-meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); }
+.search-row { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+.search-input { flex: 1; min-width: 200px; }
+.resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+/* DONATE */
+.amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.amount-btn { padding: 11px; border-radius: 10px; border: 2px solid var(--border2); font-size: 15px; font-weight: 700; color: var(--muted2); background: var(--bg3); transition: all .15s; cursor: pointer; }
+.amount-btn:hover { border-color: var(--teal); color: var(--teal); }
+.amount-btn.active { border-color: var(--teal); color: var(--teal); background: var(--teal-bg); }
+.type-toggle { display: flex; gap: 8px; margin-bottom: 20px; }
+.type-btn { flex: 1; padding: 11px; border-radius: 10px; border: 2px solid var(--border2); font-size: 14px; font-weight: 600; color: var(--muted2); background: var(--bg3); transition: all .15s; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.type-btn.active { border-color: var(--teal); color: var(--teal); background: var(--teal-bg); }
+.freq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.freq-btn { padding: 9px; border-radius: 9px; border: 1px solid var(--border2); font-size: 13px; font-weight: 500; color: var(--muted2); background: transparent; transition: all .15s; cursor: pointer; }
+.freq-btn.active { border-color: var(--amber); color: var(--amber); background: var(--amber-bg); }
+
+/* ADMIN */
+.stat-card { border-radius: 14px; }
+.stat-card .val { font-family: 'DM Serif Display', serif; font-size: 2.2rem; line-height: 1; margin-bottom: 4px; }
+.stat-card .lbl { font-size: 13px; color: var(--muted); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--border); }
+td { padding: 11px 14px; font-size: 13.5px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--muted2); }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.admin-tabs { display: flex; gap: 4px; margin-bottom: 24px; flex-wrap: wrap; }
+.admin-tab { padding: 8px 16px; border-radius: 8px; font-size: 13.5px; font-weight: 500; color: var(--muted); transition: all .15s; cursor: pointer; border: 1px solid transparent; }
+.admin-tab.active { background: rgba(255,255,255,0.07); color: var(--text); border-color: var(--border2); }
+.status-badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; display: inline-block; }
+.s-pending { background: rgba(245,158,11,0.15); color: #fcd34d; }
+.s-assigned { background: rgba(96,165,250,0.15); color: #93c5fd; }
+.s-resolved { background: rgba(34,197,94,0.15); color: #86efac; }
+.s-closed { background: rgba(100,116,139,0.15); color: #94a3b8; }
+.u-low { color: #4ade80; } .u-medium { color: #fcd34d; }
+.u-high { color: #fb923c; } .u-critical { color: #fb7185; }
+
+/* FOOTER */
+footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 56px 0 28px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-link { color: var(--muted); font-size: 13.5px; display: block; margin-bottom: 8px; transition: color .15s; }
+.footer-link:hover { color: var(--text); }
+.footer-col-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-bottom p { font-size: 12.5px; color: var(--muted); }
+.hotline-box { background: var(--rose-bg); border: 1px solid rgba(244,63,94,0.2); border-radius: 10px; padding: 14px 18px; margin-top: 20px; }
+.hotline-box .label { font-size: 11.5px; color: #fb7185; font-weight: 600; margin-bottom: 2px; }
+.hotline-box .number { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--text); }
+
+/* SPINNER */
+.spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top-color: var(--teal); border-radius: 50%; animation: spin .7s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* SECTION HEADER */
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header h2 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 12px; }
+.section-header p { color: var(--muted2); max-width: 480px; margin: 0 auto; font-size: 15px; }
+.section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { display: none; }
+  .hotline-chip { display: none; }
+  .hamburger { display: block; }
+  .hero-cta { flex-direction: column; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .grid-2.half { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .urgency-grid { grid-template-columns: 1fr 1fr; }
+  .amount-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .stats-bar .grid-4 { grid-template-columns: 1fr 1fr; }
+  header { padding: 0 16px; }
+}
+@media (max-width: 480px) {
+  .amount-grid { grid-template-columns: 1fr 1fr; }
+  .urgency-grid { grid-template-columns: 1fr 1fr; }
+  .freq-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SAFETY BANNER -->
+<div id="safety-banner">
+  <div class="inner">
+    <span style="color:#f59e0b;font-size:16px">&#9888;</span>
+    <p><strong>Safety tip:</strong> If you are in immediate danger, call 000. Press <kbd>Esc</kbd> or
+      <button class="exit-btn" onclick="quickExit()" style="background:none;border:none;padding:0;color:#fde68a;font-weight:700;cursor:pointer;text-decoration:underline;">click here</button>
+      to navigate away instantly.
+    </p>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="exit-btn" onclick="quickExit()">&#9889; Quick Exit</button>
+    <button class="close-x" onclick="document.getElementById('safety-banner').remove()">&#215;</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="main-header">
+  <button class="logo" onclick="showPage('home')">
+    <div class="logo-icon">&#128737;</div>
+    <div class="logo-text">
+      <div class="brand">Silent Step</div>
+      <div class="sub">Support Network</div>
+    </div>
+  </button>
+  <nav id="desktop-nav">
+    <button class="nav-link cta" onclick="showPage('get-help')">&#128737; Get Help Now</button>
+    <button class="nav-link" onclick="showPage('resources')">Find Resources</button>
+    <button class="nav-link" onclick="showPage('donate')">Donate</button>
+    <button class="nav-link" onclick="showPage('join')">Join Network</button>
+    <button class="nav-link" onclick="showPage('admin')" style="font-size:12px;color:var(--muted)">Admin</button>
+  </nav>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="tel:1800737732" class="hotline-chip">&#128222; 1800RESPECT</a>
+    <button class="hamburger" id="hamburger-btn" onclick="toggleMobile()">&#9776;</button>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <button class="mobile-nav-link cta" onclick="showPage('get-help');toggleMobile()">&#128737; Get Help Now</button>
+    <button class="mobile-nav-link" onclick="showPage('resources');toggleMobile()">Find Resources</button>
+    <button class="mobile-nav-link" onclick="showPage('donate');toggleMobile()">Donate</button>
+    <button class="mobile-nav-link" onclick="showPage('join');toggleMobile()">Join Network</button>
+    <a href="tel:1800737732" style="padding:10px 14px;color:#fb7185;font-size:13.5px;font-weight:600;">&#128222; 1800RESPECT: 1800 737 732</a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ HOME ═══════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">&#128737; You are not alone. Help is here.</div>
+      <h1>Safety, Support &amp; <em>Strength</em>
+        <span class="sub">For Every Survivor</span>
+      </h1>
+      <p>Silent Step connects domestic violence survivors with immediate resources, shelter, legal aid, and a powerful network of donors and volunteers committed to rebuilding lives across Australia.</p>
+      <div class="hero-cta">
+        <button class="btn btn-rose btn-lg" onclick="showPage('get-help')">&#128737; Get Help Now</button>
+        <button class="btn btn-ghost btn-lg" onclick="showPage('resources')">&#128205; Find Resources Near You</button>
+      </div>
+      <a href="tel:1800737732" class="hero-hotline">&#128222; 1800RESPECT: 1800 737 732 &nbsp;(24/7 National Helpline)</a>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="container">
+      <div class="grid-4">
+        <div class="stat"><div class="stat-val" style="color:var(--rose)">1 in 6</div><div class="stat-label">Women Affected by DV in Australia</div></div>
+        <div class="stat"><div class="stat-val" style="color:var(--teal)">1,800+</div><div class="stat-label">Partner Organisations Nationwide</div></div>
+        <div class="stat"><div class="stat-val" style="color:var(--amber)">$AU2.3B</div><div class="stat-label">Annual Economic Cost of DV</div></div>
+        <div class="stat"><div class="stat-val" style="color:var(--green)">24/7</div><div class="stat-label">Crisis Support Available</div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">How It Works</div>
+        <h2>A Simple, Confidential Path to Safety</h2>
+        <p>From crisis to long-term support — every step is secure, judgment-free, and guided.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card how-card">
+          <div class="step-num">01</div>
+          <div class="step-icon" style="background:var(--rose-bg)">&#128737;</div>
+          <h3 style="font-size:1.2rem;margin-bottom:10px">Request Help Safely</h3>
+          <p style="color:var(--muted2);font-size:14px;line-height:1.7;margin-bottom:16px">Submit an anonymous or named request. Share your location to find the nearest available resources and shelters.</p>
+          <button class="btn btn-sm" style="color:var(--rose);padding-left:0" onclick="showPage('get-help')">Get Help Now &#8594;</button>
+        </div>
+        <div class="card how-card">
+          <div class="step-num">02</div>
+          <div class="step-icon" style="background:var(--teal-bg)">&#128205;</div>
+          <h3 style="font-size:1.2rem;margin-bottom:10px">Connect to Resources</h3>
+          <p style="color:var(--muted2);font-size:14px;line-height:1.7;margin-bottom:16px">Our network instantly connects you with verified shelters, legal aid, counselling, medical care, and financial assistance.</p>
+          <button class="btn btn-sm" style="color:var(--teal);padding-left:0" onclick="showPage('resources')">View Resources &#8594;</button>
+        </div>
+        <div class="card how-card">
+          <div class="step-num">03</div>
+          <div class="step-icon" style="background:var(--amber-bg)">&#128155;</div>
+          <h3 style="font-size:1.2rem;margin-bottom:10px">Rebuild with Support</h3>
+          <p style="color:var(--muted2);font-size:14px;line-height:1.7;margin-bottom:16px">Access ongoing case management, volunteer support, and funding from our network of corporate partners and individual donors.</p>
+          <button class="btn btn-sm" style="color:var(--amber);padding-left:0" onclick="showPage('donate')">Support the Mission &#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="container">
+      <div class="grid-2" style="align-items:center;gap:48px">
+        <div>
+          <div class="section-eyebrow">Our Network</div>
+          <h2 style="font-size:2rem;margin-bottom:14px">A Unified Support Network</h2>
+          <p style="color:var(--muted2);line-height:1.75;margin-bottom:24px">Silent Step bridges the gap between survivors in need and those who want to help — creating a comprehensive safety net that extends far beyond crisis intervention.</p>
+          <ul style="list-style:none;margin-bottom:28px">
+            <li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px"><span style="color:var(--green);font-size:16px;margin-top:1px">&#10003;</span><span style="color:var(--muted2);font-size:14px">Location-based resource matching for immediate local help</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px"><span style="color:var(--green);font-size:16px;margin-top:1px">&#10003;</span><span style="color:var(--muted2);font-size:14px">Secure, anonymous help requests to protect your safety</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px"><span style="color:var(--green);font-size:16px;margin-top:1px">&#10003;</span><span style="color:var(--muted2);font-size:14px">Corporate and individual donor coordination</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px"><span style="color:var(--green);font-size:16px;margin-top:1px">&#10003;</span><span style="color:var(--muted2);font-size:14px">Volunteer management and case tracking</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px"><span style="color:var(--green);font-size:16px;margin-top:1px">&#10003;</span><span style="color:var(--muted2);font-size:14px">Real-time availability of shelter beds and services</span></li>
+          </ul>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-teal" onclick="showPage('donate')">&#128155; Donate Now</button>
+            <button class="btn btn-ghost" onclick="showPage('join')">&#128101; Volunteer</button>
+          </div>
+        </div>
+        <div class="grid-2 half">
+          <div class="card" style="text-align:center">
+            <div style="font-size:24px;margin-bottom:8px">&#127970;</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--teal)">120+</div>
+            <div style="font-weight:600;font-size:13px;color:var(--text);margin:2px 0">Corporate Partners</div>
+            <div style="font-size:12px;color:var(--muted)">Australian businesses funding survivor support</div>
+          </div>
+          <div class="card" style="text-align:center">
+            <div style="font-size:24px;margin-bottom:8px">&#10084;</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--rose)">8K+</div>
+            <div style="font-weight:600;font-size:13px;color:var(--text);margin:2px 0">Individual Donors</div>
+            <div style="font-size:12px;color:var(--muted)">Australians giving monthly</div>
+          </div>
+          <div class="card" style="text-align:center">
+            <div style="font-size:24px;margin-bottom:8px">&#128101;</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--amber)">2,400+</div>
+            <div style="font-weight:600;font-size:13px;color:var(--text);margin:2px 0">Active Volunteers</div>
+            <div style="font-size:12px;color:var(--muted)">Trained support volunteers</div>
+          </div>
+          <div class="card" style="text-align:center">
+            <div style="font-size:24px;margin-bottom:8px">&#128737;</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--green)">18K+</div>
+            <div style="font-weight:600;font-size:13px;color:var(--text);margin:2px 0">Lives Changed</div>
+            <div style="font-size:12px;color:var(--muted)">Survivors supported this year</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm" style="background:radial-gradient(ellipse at 50% 50%,rgba(244,63,94,0.08) 0%,transparent 70%),var(--bg);border-top:1px solid var(--border)">
+    <div class="container-sm" style="text-align:center;padding:24px">
+      <h2 style="font-size:2rem;margin-bottom:12px">Ready to Make a Difference?</h2>
+      <p style="color:var(--muted2);margin-bottom:28px">Whether you need help, want to volunteer, or wish to donate — every action creates ripples of change in survivors' lives.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+        <button class="btn btn-rose btn-lg" onclick="showPage('get-help')">&#128737; I Need Help</button>
+        <button class="btn btn-teal btn-lg" onclick="showPage('donate')">&#128155; I Want to Help</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════ GET HELP ═══════════════════════════ -->
+<div id="page-get-help" class="page">
+  <div style="padding:48px 0 64px">
+    <div class="container-sm">
+      <div class="text-center" style="margin-bottom:32px">
+        <div style="width:56px;height:56px;background:var(--rose-bg);border:1px solid rgba(244,63,94,0.25);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px">&#128737;</div>
+        <h1 style="font-size:2rem;margin-bottom:10px">Request Help</h1>
+        <p style="color:var(--muted2);font-size:14.5px">Fill out as much or as little as you feel safe sharing. All submissions are confidential.</p>
+      </div>
+
+      <div class="alert-box alert-danger">
+        <span style="font-size:18px;flex-shrink:0;margin-top:1px">&#9888;</span>
+        <div>
+          <p style="font-weight:700;margin-bottom:2px">In Immediate Danger?</p>
+          <p>Call <strong>000</strong> immediately or the 1800RESPECT National Helpline: <a href="tel:1800737732" style="font-weight:700;text-decoration:underline">1800 737 732</a></p>
+        </div>
+      </div>
+
+      <div class="alert-box alert-info" style="margin-bottom:24px">
+        <span style="font-size:15px;flex-shrink:0">&#128274;</span>
+        <p>Your submission is encrypted and confidential. You can remain anonymous by leaving name and contact blank.</p>
+      </div>
+
+      <div id="help-form-wrap">
+        <div class="card" style="padding:28px">
+          <div class="form-section" style="border-top:none;padding-top:0">
+            <label class="form-label">How urgent is your situation?</label>
+            <div class="urgency-grid">
+              <button class="urgency-btn" onclick="selectUrgency(this,'low')"><div class="u-label">Low</div><div class="u-sub">Need info</div></button>
+              <button class="urgency-btn" onclick="selectUrgency(this,'medium')"><div class="u-label">Medium</div><div class="u-sub">Need help soon</div></button>
+              <button class="urgency-btn sel-high" onclick="selectUrgency(this,'high')"><div class="u-label">High</div><div class="u-sub">Need help today</div></button>
+              <button class="urgency-btn" onclick="selectUrgency(this,'critical')"><div class="u-label">Critical</div><div class="u-sub">In danger now</div></button>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <label class="form-label">Describe your situation <span style="color:var(--rose)">*</span></label>
+            <div class="form-hint">Share what you feel comfortable with. This helps us connect you with the right support.</div>
+            <textarea id="help-description" rows="4" placeholder="I need help with..."></textarea>
+          </div>
+
+          <div class="form-section">
+            <label class="form-label">What type of help do you need?</label>
+            <div class="tag-group" id="needs-tags">
+              <button class="tag" onclick="toggleTag(this)">Emergency Shelter</button>
+              <button class="tag" onclick="toggleTag(this)">Legal Assistance</button>
+              <button class="tag" onclick="toggleTag(this)">Counselling / Therapy</button>
+              <button class="tag" onclick="toggleTag(this)">Medical Care</button>
+              <button class="tag" onclick="toggleTag(this)">Financial Aid</button>
+              <button class="tag" onclick="toggleTag(this)">Childcare</button>
+              <button class="tag" onclick="toggleTag(this)">Transportation</button>
+              <button class="tag" onclick="toggleTag(this)">Food &amp; Clothing</button>
+              <button class="tag" onclick="toggleTag(this)">Safety Planning</button>
+              <button class="tag" onclick="toggleTag(this)">Restraining Order Help</button>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <label class="form-label">Your Location</label>
+            <div class="form-hint">Sharing your location helps us find the nearest shelters and resources.</div>
+            <div style="margin-bottom:10px">
+              <button class="btn btn-teal btn-sm" id="locate-btn" onclick="getLocation()">&#128205; Use My Location</button>
+            </div>
+            <input type="text" id="location-address" placeholder="Or enter your city or suburb" />
+            <div id="location-confirmed" style="display:none;color:var(--green);font-size:12.5px;margin-top:7px">&#10003; Location captured</div>
+          </div>
+
+          <div class="form-section">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <label class="form-label" style="margin-bottom:0">Contact Information <span style="color:var(--muted);font-weight:400">(Optional)</span></label>
+              <button onclick="var cf=document.getElementById('contact-fields');cf.style.display=cf.style.display==='none'?'block':'none'" style="font-size:13px;color:var(--teal)">Show/Hide</button>
+            </div>
+            <div class="form-hint">You can remain completely anonymous. Contact info allows a case worker to follow up.</div>
+            <div id="contact-fields" style="display:none">
+              <div class="form-grid" style="margin-bottom:10px">
+                <input type="text" id="help-name" placeholder="Your name (optional)" />
+                <input type="text" id="help-contact" placeholder="Phone or email (optional)" />
+              </div>
+              <div class="checkbox-row">
+                <input type="checkbox" id="safe-to-call" />
+                <label for="safe-to-call">It is currently safe for someone to contact me</label>
+              </div>
+              <div id="contact-time-wrap" style="display:none;margin-top:10px">
+                <input type="text" id="contact-time" placeholder="Best time to contact (e.g., mornings, after 6pm)" />
+              </div>
+            </div>
+          </div>
+
+          <div id="help-error" style="display:none;margin-top:16px" class="alert-box alert-danger">
+            <span>&#9888;</span><p id="help-error-msg"></p>
+          </div>
+
+          <button class="btn btn-rose btn-full" style="margin-top:20px;padding:14px" id="help-submit-btn" onclick="submitHelp()">
+            &#128737; Submit Help Request
+          </button>
+          <p style="text-align:center;color:var(--muted);font-size:12px;margin-top:12px">&#128274; Your submission is encrypted. We will never share your information without your consent.</p>
+        </div>
+      </div>
+
+      <div id="help-success" style="display:none" class="success-screen">
+        <div>
+          <div class="success-icon">&#10003;</div>
+          <h2 style="font-size:1.8rem;margin-bottom:12px">Your Request Has Been Received</h2>
+          <p style="color:var(--muted2);margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto">A case worker will follow up with you as soon as possible. If you are in immediate danger, please call 000.</p>
+          <div style="background:var(--rose-bg);border:1px solid rgba(244,63,94,0.2);border-radius:12px;padding:18px;margin-bottom:20px">
+            <p style="color:#fb7185;font-weight:600;font-size:13px;margin-bottom:4px">&#128222; 1800RESPECT — Available 24/7</p>
+            <a href="tel:1800737732" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--text)">1800 737 732</a>
+          </div>
+          <p style="color:var(--muted);font-size:12px">&#128274; Your information is kept confidential and secure</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ RESOURCES ═══════════════════════════ -->
+<div id="page-resources" class="page">
+  <div class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Local Support</div>
+        <h2>Find Resources Near You</h2>
+        <p>Verified shelters, hotlines, legal aid, counselling centres, and more — all in one place.</p>
+      </div>
+      <div class="search-row">
+        <input type="text" class="search-input" id="resource-search" placeholder="Search by name, city, or type..." oninput="filterResources()" />
+        <select id="resource-type-filter" onchange="filterResources()" style="width:auto;max-width:180px;background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;font-family:inherit;font-size:14px;outline:none">
+          <option value="all">All Types</option>
+          <option value="shelter">Shelter</option>
+          <option value="hotline">Hotline</option>
+          <option value="legal_aid">Legal Aid</option>
+          <option value="counselling">Counselling</option>
+          <option value="medical">Medical</option>
+          <option value="financial">Financial Aid</option>
+        </select>
+        <button class="btn btn-ghost btn-sm" onclick="locateUser()">&#128205; Near Me</button>
+      </div>
+      <div id="resources-list" class="resources-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ DONATE ═══════════════════════════ -->
+<div id="page-donate" class="page">
+  <div style="padding:56px 0">
+    <div class="container-sm">
+      <div class="text-center" style="margin-bottom:36px">
+        <div style="width:56px;height:56px;background:var(--teal-bg);border:1px solid rgba(20,184,166,0.25);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px">&#128155;</div>
+        <h1 style="font-size:2rem;margin-bottom:10px">Support Silent Step</h1>
+        <p style="color:var(--muted2);font-size:14.5px">Your donation directly funds shelter, legal aid, counselling, and emergency response for survivors.</p>
+      </div>
+
+      <div id="donate-form-wrap" class="card" style="padding:28px">
+        <div class="form-section" style="border-top:none;padding-top:0">
+          <label class="form-label">I am donating as:</label>
+          <div class="type-toggle">
+            <button class="type-btn active" id="dtype-individual" onclick="setDonorType('individual')">&#128100; Individual</button>
+            <button class="type-btn" id="dtype-corporate" onclick="setDonorType('corporate')">&#127970; Corporate</button>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Donation Amount</label>
+          <div class="amount-grid" style="margin-bottom:10px">
+            <button class="amount-btn" onclick="setAmount(25,this)">$25</button>
+            <button class="amount-btn" onclick="setAmount(50,this)">$50</button>
+            <button class="amount-btn active" id="amt-100" onclick="setAmount(100,this)">$100</button>
+            <button class="amount-btn" onclick="setAmount(250,this)">$250</button>
+            <button class="amount-btn" onclick="setAmount(500,this)">$500</button>
+            <button class="amount-btn" onclick="setAmount(1000,this)">$1,000</button>
+          </div>
+          <input type="number" id="custom-amount" placeholder="Or enter a custom amount" min="1" oninput="clearPreset()" />
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Frequency</label>
+          <div class="freq-grid">
+            <button class="freq-btn active" id="freq-one_time" onclick="setFreq('one_time',this)">One-Time</button>
+            <button class="freq-btn" id="freq-monthly" onclick="setFreq('monthly',this)">Monthly</button>
+            <button class="freq-btn" id="freq-quarterly" onclick="setFreq('quarterly',this)">Quarterly</button>
+            <button class="freq-btn" id="freq-annual" onclick="setFreq('annual',this)">Annual</button>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Designate Your Gift</label>
+          <div class="tag-group" id="purpose-tags">
+            <button class="tag active active-teal" onclick="selectPurpose(this,'general')">General Fund</button>
+            <button class="tag" onclick="selectPurpose(this,'shelter')">Emergency Shelter</button>
+            <button class="tag" onclick="selectPurpose(this,'legal')">Legal Aid</button>
+            <button class="tag" onclick="selectPurpose(this,'counselling')">Counselling</button>
+            <button class="tag" onclick="selectPurpose(this,'emergency')">Crisis Response</button>
+            <button class="tag" onclick="selectPurpose(this,'childcare')">Childcare</button>
+          </div>
+          <input type="hidden" id="purpose-val" value="general" />
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Your Information</label>
+          <div class="form-grid" style="margin-bottom:10px">
+            <input type="text" id="donor-name" placeholder="Full name *" required />
+            <input type="email" id="donor-email" placeholder="Email address *" required />
+          </div>
+          <div class="form-grid" style="margin-bottom:10px">
+            <input type="tel" id="donor-phone" placeholder="Phone (optional)" />
+            <input type="text" id="donor-city" placeholder="City / Suburb (optional)" />
+          </div>
+          <div id="corporate-fields" style="display:none">
+            <div class="form-grid" style="margin-bottom:10px">
+              <input type="text" id="donor-company" placeholder="Company name *" />
+              <input type="url" id="donor-website" placeholder="Website (optional)" />
+            </div>
+          </div>
+          <textarea id="donor-message" rows="2" placeholder="Add a message (optional)..." style="margin-bottom:10px"></textarea>
+          <div class="checkbox-row">
+            <input type="checkbox" id="anon-check" />
+            <label for="anon-check">Make my donation anonymous</label>
+          </div>
+        </div>
+
+        <div id="donate-error" style="display:none;margin-top:12px" class="alert-box alert-danger">
+          <span>&#9888;</span><p id="donate-error-msg"></p>
+        </div>
+
+        <button class="btn btn-teal btn-full" style="margin-top:20px;padding:14px" onclick="submitDonation()">
+          &#128155; Complete Donation
+        </button>
+        <p style="text-align:center;color:var(--muted);font-size:12px;margin-top:10px">&#128274; Secure &amp; Encrypted &middot; This is a demo &mdash; no real payment is processed</p>
+      </div>
+
+      <div id="donate-success" style="display:none" class="success-screen">
+        <div>
+          <div class="success-icon" style="background:var(--teal-bg)">&#128155;</div>
+          <h2 style="font-size:1.8rem;margin-bottom:12px">Thank You for Your Generosity!</h2>
+          <p style="color:var(--muted2);margin-bottom:20px;max-width:400px;margin-left:auto;margin-right:auto">Your donation will help fund shelter, legal aid, and emergency support for survivors.</p>
+          <button class="btn btn-ghost" onclick="showPage('home')">&#8592; Back to Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ JOIN ═══════════════════════════ -->
+<div id="page-join" class="page">
+  <div style="padding:56px 0">
+    <div class="container-sm">
+      <div class="text-center" style="margin-bottom:36px">
+        <div style="width:56px;height:56px;background:var(--amber-bg);border:1px solid rgba(245,158,11,0.25);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px">&#128101;</div>
+        <h1 style="font-size:2rem;margin-bottom:10px">Join Our Network</h1>
+        <p style="color:var(--muted2);font-size:14.5px">Volunteer your skills or register your organisation as a partner.</p>
+      </div>
+
+      <div id="join-form-wrap" class="card" style="padding:28px">
+        <div class="form-section" style="border-top:none;padding-top:0">
+          <div class="type-toggle">
+            <button class="type-btn active" id="jtype-volunteer" onclick="setJoinType('volunteer')" style="border-color:var(--amber);color:var(--amber);background:var(--amber-bg)">&#128100; Volunteer</button>
+            <button class="type-btn" id="jtype-corporate" onclick="setJoinType('corporate')">&#127970; Corporate Partner</button>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Your Information</label>
+          <div class="form-grid" style="margin-bottom:10px">
+            <input type="text" id="join-name" placeholder="Full name *" />
+            <input type="email" id="join-email" placeholder="Email *" />
+          </div>
+          <div class="form-grid" style="margin-bottom:10px">
+            <input type="tel" id="join-phone" placeholder="Phone" />
+            <input type="text" id="join-city" placeholder="City" />
+          </div>
+          <select id="join-state" style="margin-bottom:10px;width:100%;background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;font-family:inherit;font-size:14px;outline:none">
+            <option value="">State / Territory</option>
+            <option>NSW</option><option>VIC</option><option>QLD</option>
+            <option>SA</option><option>WA</option><option>TAS</option>
+            <option>ACT</option><option>NT</option>
+          </select>
+        </div>
+
+        <div id="join-corporate-fields" style="display:none">
+          <div class="form-section">
+            <label class="form-label">Organisation</label>
+            <div class="form-grid" style="margin-bottom:10px">
+              <input type="text" id="join-company" placeholder="Company name *" />
+              <input type="url" id="join-website" placeholder="Website" />
+            </div>
+            <textarea id="join-mission" rows="2" placeholder="How does your organisation's mission align with supporting DV survivors?"></textarea>
+          </div>
+        </div>
+
+        <div id="join-volunteer-fields">
+          <div class="form-section">
+            <label class="form-label">Skills</label>
+            <div class="tag-group" id="skills-tags">
+              <button class="tag" onclick="toggleTag(this)">Crisis Counselling</button>
+              <button class="tag" onclick="toggleTag(this)">Legal Assistance</button>
+              <button class="tag" onclick="toggleTag(this)">Medical Care</button>
+              <button class="tag" onclick="toggleTag(this)">Transportation</button>
+              <button class="tag" onclick="toggleTag(this)">Childcare</button>
+              <button class="tag" onclick="toggleTag(this)">Translation</button>
+              <button class="tag" onclick="toggleTag(this)">Social Work</button>
+              <button class="tag" onclick="toggleTag(this)">Fundraising</button>
+              <button class="tag" onclick="toggleTag(this)">Admin Support</button>
+              <button class="tag" onclick="toggleTag(this)">Tech / IT</button>
+              <button class="tag" onclick="toggleTag(this)">Financial Coaching</button>
+            </div>
+          </div>
+          <div class="form-section">
+            <label class="form-label">Availability</label>
+            <div class="tag-group" id="avail-tags">
+              <button class="tag" onclick="toggleTag(this)">Weekday Mornings</button>
+              <button class="tag" onclick="toggleTag(this)">Weekday Afternoons</button>
+              <button class="tag" onclick="toggleTag(this)">Weekday Evenings</button>
+              <button class="tag" onclick="toggleTag(this)">Weekend Mornings</button>
+              <button class="tag" onclick="toggleTag(this)">Weekend Afternoons</button>
+              <button class="tag" onclick="toggleTag(this)">On-Call / Emergency</button>
+            </div>
+          </div>
+          <div class="form-section">
+            <label class="form-label">Languages</label>
+            <div class="tag-group" id="lang-tags">
+              <button class="tag active" onclick="toggleTag(this)">English</button>
+              <button class="tag" onclick="toggleTag(this)">Mandarin</button>
+              <button class="tag" onclick="toggleTag(this)">Arabic</button>
+              <button class="tag" onclick="toggleTag(this)">Vietnamese</button>
+              <button class="tag" onclick="toggleTag(this)">Hindi</button>
+              <button class="tag" onclick="toggleTag(this)">Spanish</button>
+              <button class="tag" onclick="toggleTag(this)">Greek</button>
+              <button class="tag" onclick="toggleTag(this)">Italian</button>
+              <button class="tag" onclick="toggleTag(this)">Indigenous Language</button>
+              <button class="tag" onclick="toggleTag(this)">Other</button>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="checkbox-row">
+              <input type="checkbox" id="bg-check-consent" />
+              <label for="bg-check-consent">I consent to a background check as required for certain volunteer roles</label>
+            </div>
+          </div>
+        </div>
+
+        <div id="join-error" style="display:none;margin-top:12px" class="alert-box alert-danger">
+          <span>&#9888;</span><p id="join-error-msg"></p>
+        </div>
+
+        <button class="btn btn-full" style="margin-top:20px;padding:14px;background:var(--amber);color:#1c0d00;font-weight:700" onclick="submitJoin()">
+          Join the Network &#8594;
+        </button>
+      </div>
+
+      <div id="join-success" style="display:none" class="success-screen">
+        <div>
+          <div class="success-icon" style="background:var(--amber-bg)">&#128101;</div>
+          <h2 style="font-size:1.8rem;margin-bottom:12px">Welcome to Silent Step!</h2>
+          <p style="color:var(--muted2);margin-bottom:20px;max-width:400px;margin-left:auto;margin-right:auto">Your application has been received. Our team will be in touch within 2&ndash;3 business days.</p>
+          <button class="btn btn-ghost" onclick="showPage('home')">&#8592; Back to Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ ADMIN ═══════════════════════════ -->
+<div id="page-admin" class="page">
+  <div class="section">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px">
+        <div>
+          <h1 style="font-size:1.8rem;margin-bottom:4px">Admin Dashboard</h1>
+          <p style="color:var(--muted);font-size:13.5px">Silent Step Australia management overview</p>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="initAdmin()">&#8635; Refresh</button>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:28px">
+        <div class="card stat-card"><div class="val" style="color:var(--rose)" id="st-requests">0</div><div class="lbl">Total Requests</div></div>
+        <div class="card stat-card"><div class="val" style="color:var(--amber)" id="st-pending">0</div><div class="lbl">Pending</div></div>
+        <div class="card stat-card"><div class="val" style="color:var(--teal)" id="st-volunteers">0</div><div class="lbl">Volunteers</div></div>
+        <div class="card stat-card"><div class="val" style="color:var(--green)" id="st-donations">A$0</div><div class="lbl">Total Donated</div></div>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="adminTab('requests',this)">&#128203; Help Requests</button>
+        <button class="admin-tab" onclick="adminTab('donors',this)">&#128155; Donors</button>
+        <button class="admin-tab" onclick="adminTab('volunteers',this)">&#128101; Volunteers</button>
+      </div>
+
+      <div id="admin-requests" class="card" style="padding:0;overflow:hidden">
+        <div class="table-wrap"><table>
+          <thead><tr><th>Date</th><th>Urgency</th><th>Location</th><th>Description</th><th>Needs</th><th>Status</th></tr></thead>
+          <tbody id="requests-tbody"></tbody>
+        </table></div>
+      </div>
+      <div id="admin-donors" class="card" style="display:none;padding:0;overflow:hidden">
+        <div class="table-wrap"><table>
+          <thead><tr><th>Date</th><th>Donor</th><th>Type</th><th>Amount</th><th>Frequency</th><th>Purpose</th></tr></thead>
+          <tbody id="donors-tbody"></tbody>
+        </table></div>
+      </div>
+      <div id="admin-volunteers" class="card" style="display:none;padding:0;overflow:hidden">
+        <div class="table-wrap"><table>
+          <thead><tr><th>Date</th><th>Name</th><th>Location</th><th>Skills</th><th>Languages</th><th>Status</th></tr></thead>
+          <tbody id="volunteers-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="main-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:14px">
+          <div class="logo-icon">&#128737;</div>
+          <div class="logo-text"><div class="brand">Silent Step</div><div class="sub">Support Network</div></div>
+        </div>
+        <p style="color:var(--muted);font-size:13.5px;max-width:320px;line-height:1.7">A unified platform connecting domestic violence survivors across Australia with shelters, legal aid, counselling, and a community dedicated to ending the cycle of abuse.</p>
+        <div class="hotline-box">
+          <div class="label">&#128222; 1800RESPECT Helpline</div>
+          <a href="tel:1800737732" class="number">1800 737 732</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <button class="footer-link" onclick="showPage('get-help')">Get Help Now</button>
+        <button class="footer-link" onclick="showPage('resources')">Find Resources</button>
+        <button class="footer-link" onclick="showPage('get-help')">Crisis Support</button>
+      </div>
+      <div>
+        <div class="footer-col-title">Get Involved</div>
+        <button class="footer-link" onclick="showPage('donate')">Donate</button>
+        <button class="footer-link" onclick="showPage('join')">Volunteer</button>
+        <button class="footer-link" onclick="showPage('join')">Corporate Partners</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 Silent Step Support Network &middot; Australia &middot; For demonstration purposes only</p>
+      <p>&#128274; Your data is always confidential</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const DB = { help_requests:[], donors:[], volunteers:[], donations:[] };
+
+const SAMPLE_RESOURCES = [
+  { id:1, name:"1800RESPECT National Helpline", type:"hotline", city:"National", state:"", phone:"1800 737 732", website:"https://www.1800respect.org.au", description:"Australia's national domestic, family and sexual violence counselling, information and support service. Available 24/7.", available_24h:true, current_availability:true, accepts_children:false, accepts_pets:false, languages:["English","Arabic","Mandarin","Vietnamese","+ more via interpreter"] },
+  { id:2, name:"Domestic Violence NSW Crisis Line", type:"hotline", city:"Sydney", state:"NSW", phone:"1800 656 463", website:"https://www.dvnsw.org.au", description:"24-hour crisis line providing support, safety planning, and referrals to local DV services across New South Wales.", available_24h:true, current_availability:true, accepts_children:false, accepts_pets:false, languages:["English","Arabic","Mandarin"] },
+  { id:3, name:"Safe Steps Family Violence Response Centre", type:"shelter", city:"Melbourne", state:"VIC", phone:"1800 015 188", website:"https://www.safesteps.org.au", description:"Victoria's state-wide first-response service for people experiencing family violence. Emergency accommodation and case management.", available_24h:true, current_availability:true, accepts_children:true, accepts_pets:false, languages:["English","Vietnamese","Cantonese","Mandarin"] },
+  { id:4, name:"Women's Legal Service Queensland", type:"legal_aid", city:"Brisbane", state:"QLD", phone:"(07) 3392 0670", website:"https://www.wlsq.org.au", description:"Free legal advice for women experiencing domestic violence including DVOs, property settlements, child custody, and immigration.", available_24h:false, current_availability:true, accepts_children:false, accepts_pets:false, languages:["English","Mandarin","Spanish"] },
+  { id:5, name:"Relationships Australia", type:"counselling", city:"National", state:"", phone:"1300 364 277", website:"https://www.relationships.org.au", description:"Trauma-informed counselling and group programs for survivors of family violence. Sliding scale fees. Children's services available.", available_24h:false, current_availability:true, accepts_children:true, accepts_pets:false, languages:["English","Arabic","Cantonese","Mandarin"] },
+  { id:6, name:"Yarrow Place Rape & Sexual Assault Service", type:"medical", city:"Adelaide", state:"SA", phone:"(08) 8226 8787", website:"https://www.yarrowplace.sa.gov.au", description:"24-hour crisis care and medical treatment for people who have experienced sexual assault.", available_24h:true, current_availability:true, accepts_children:true, accepts_pets:false, languages:["English","Arabic","Mandarin"] },
+  { id:7, name:"Good Shepherd Australia", type:"financial", city:"National", state:"", phone:"1300 136 898", website:"https://goodshep.org.au", description:"No-interest loans, emergency financial aid, and financial counselling to help survivors rebuild financial independence.", available_24h:false, current_availability:true, accepts_children:false, accepts_pets:false, languages:["English"] },
+  { id:8, name:"Dogs & Cats Forever — DV Pet Support", type:"shelter", city:"Perth", state:"WA", phone:"(08) 555-0166", website:"", description:"Emergency pet fostering for survivors, removing the barrier of leaving an abuser due to fear for their animals' safety.", available_24h:false, current_availability:true, accepts_children:true, accepts_pets:true, languages:["English"] },
+];
+
+const TYPE_LABELS = { shelter:'Shelter', hotline:'Hotline', legal_aid:'Legal Aid', counselling:'Counselling', medical:'Medical', financial:'Financial Aid', childcare:'Childcare', other:'Other' };
+const TYPE_COLORS = { shelter:'rose', hotline:'red', legal_aid:'blue', counselling:'teal', medical:'green', financial:'amber', childcare:'orange', other:'slate' };
+const colorMap = { rose:'#fb7185', red:'#f87171', blue:'#93c5fd', teal:'#2dd4bf', green:'#4ade80', amber:'#fcd34d', orange:'#fb923c', slate:'#94a3b8' };
+const bgMap = { rose:'rgba(244,63,94,0.1)', red:'rgba(248,113,113,0.1)', blue:'rgba(96,165,250,0.1)', teal:'rgba(20,184,166,0.1)', green:'rgba(34,197,94,0.1)', amber:'rgba(245,158,11,0.1)', orange:'rgba(249,115,22,0.1)', slate:'rgba(100,116,139,0.1)' };
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('main-footer').style.display = id==='admin' ? 'none' : '';
+  if (id==='admin') initAdmin();
+  if (id==='resources') renderResources();
+}
+
+function toggleMobile() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+function quickExit() {
+  window.location.href = 'https://www.bom.gov.au';
+}
+document.addEventListener('keydown', e => { if (e.key==='Escape') quickExit(); });
+
+let selectedUrgency = 'high';
+let locLat = null, locLng = null;
+
+function selectUrgency(btn, val) {
+  document.querySelectorAll('.urgency-btn').forEach(b => b.className='urgency-btn');
+  btn.classList.add('sel-'+val);
+  selectedUrgency = val;
+}
+function toggleTag(btn) { btn.classList.toggle('active'); }
+
+function getLocation() {
+  var btn = document.getElementById('locate-btn');
+  btn.innerHTML = '<span class="spinner"></span> Locating...';
+  btn.disabled = true;
+  if (!navigator.geolocation) { btn.innerHTML='&#128205; Use My Location'; btn.disabled=false; return; }
+  navigator.geolocation.getCurrentPosition(
+    function(pos) {
+      locLat=pos.coords.latitude; locLng=pos.coords.longitude;
+      document.getElementById('location-address').value = locLat.toFixed(4)+', '+locLng.toFixed(4);
+      document.getElementById('location-confirmed').style.display='block';
+      btn.innerHTML='&#10003; Location Captured'; btn.disabled=false;
+    },
+    function() { btn.innerHTML='&#128205; Use My Location'; btn.disabled=false; }
+  );
+}
+function locateUser() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(){}); }
+
+function submitHelp() {
+  var desc = document.getElementById('help-description').value.trim();
+  if (!desc) { showError('help-error','help-error-msg','Please describe your situation.'); return; }
+  var needs = Array.from(document.querySelectorAll('#needs-tags .tag.active')).map(function(t){return t.textContent;});
+  var btn = document.getElementById('help-submit-btn');
+  btn.innerHTML='<span class="spinner"></span> Submitting...'; btn.disabled=true;
+  DB.help_requests.push({
+    id:'req_'+Date.now(), description:desc, urgency_level:selectedUrgency, needs:needs,
+    name:document.getElementById('help-name').value,
+    contact:document.getElementById('help-contact').value,
+    location_address:document.getElementById('location-address').value,
+    status:'pending', created_at:new Date().toISOString()
+  });
+  setTimeout(function() {
+    document.getElementById('help-form-wrap').style.display='none';
+    document.getElementById('help-success').style.display='flex';
+  }, 800);
+}
+
+function renderResources() {
+  var search = (document.getElementById('resource-search').value||'').toLowerCase();
+  var type = document.getElementById('resource-type-filter').value;
+  var filtered = SAMPLE_RESOURCES.filter(function(r) {
+    var ms = !search || r.name.toLowerCase().includes(search) || r.city.toLowerCase().includes(search) || r.description.toLowerCase().includes(search);
+    var mt = type==='all' || r.type===type;
+    return ms && mt;
+  });
+  var list = document.getElementById('resources-list');
+  if (!filtered.length) { list.innerHTML='<div style="color:var(--muted);padding:32px 0;grid-column:1/-1;text-align:center">No resources found.</div>'; return; }
+  list.innerHTML = filtered.map(function(r) {
+    var c = TYPE_COLORS[r.type]||'slate';
+    return '<div class="card resource-card">'
+      +'<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">'
+      +'<div style="flex:1"><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px">'
+      +'<span style="background:'+bgMap[c]+';color:'+colorMap[c]+';border:1px solid '+colorMap[c]+'30;padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600">'+TYPE_LABELS[r.type]+'</span>'
+      +(r.available_24h?'<span style="background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2);padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600">24/7</span>':'')
+      +'</div><h3 style="font-size:1rem;font-family:\'DM Serif Display\',serif;line-height:1.3">'+r.name+'</h3></div>'
+      +'<div class="availability-dot'+(r.current_availability?'':' offline')+'"></div></div>'
+      +'<p style="color:var(--muted2);font-size:13px;line-height:1.65;margin-bottom:12px">'+r.description+'</p>'
+      +'<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">'
+      +(r.city?'<div style="font-size:12.5px;color:var(--muted2)">&#128205; '+[r.city,r.state].filter(Boolean).join(', ')+'</div>':'')
+      +(r.phone?'<div style="font-size:12.5px">&#128222; <a href="tel:'+r.phone.replace(/\D/g,'')+'" style="color:var(--teal);font-weight:600">'+r.phone+'</a></div>':'')
+      +(r.website?'<div style="font-size:12.5px">&#127760; <a href="'+r.website+'" target="_blank" rel="noopener" style="color:var(--muted2)">'+r.website.replace(/^https?:\/\//,'')+'</a></div>':'')
+      +'</div>'
+      +'<div class="resource-meta">'
+      +(r.accepts_children?'<div class="resource-meta-item">&#128118; Children welcome</div>':'')
+      +(r.accepts_pets?'<div class="resource-meta-item">&#128062; Pets allowed</div>':'')
+      +(r.languages&&r.languages.length>1?'<div class="resource-meta-item">&#127760; '+r.languages.join(', ')+'</div>':'')
+      +'</div></div>';
+  }).join('');
+}
+function filterResources() { renderResources(); }
+
+var donorType='individual', selectedAmount=100, selectedFreq='one_time', selectedPurpose='general';
+function setDonorType(t) {
+  donorType=t;
+  document.getElementById('dtype-individual').classList.toggle('active',t==='individual');
+  document.getElementById('dtype-corporate').classList.toggle('active',t==='corporate');
+  document.getElementById('corporate-fields').style.display=t==='corporate'?'block':'none';
+}
+function setAmount(a,btn) {
+  selectedAmount=a; document.getElementById('custom-amount').value='';
+  document.querySelectorAll('.amount-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active');
+}
+function clearPreset() { selectedAmount=null; document.querySelectorAll('.amount-btn').forEach(function(b){b.classList.remove('active');}); }
+function setFreq(f,btn) {
+  selectedFreq=f; document.querySelectorAll('.freq-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active');
+}
+function selectPurpose(btn,val) {
+  selectedPurpose=val;
+  document.querySelectorAll('#purpose-tags .tag').forEach(function(b){b.classList.remove('active','active-teal');});
+  btn.classList.add('active','active-teal');
+  document.getElementById('purpose-val').value=val;
+}
+function submitDonation() {
+  var name=document.getElementById('donor-name').value.trim();
+  var email=document.getElementById('donor-email').value.trim();
+  var amount=parseFloat(document.getElementById('custom-amount').value)||selectedAmount;
+  if (!name||!email) { showError('donate-error','donate-error-msg','Please fill in your name and email.'); return; }
+  if (!amount||amount<1) { showError('donate-error','donate-error-msg','Please enter a valid donation amount.'); return; }
+  var donor={id:'donor_'+Date.now(),donor_type:donorType,name:name,email:email,created_at:new Date().toISOString()};
+  var donation={id:'don_'+Date.now(),donor_id:donor.id,donor_name:document.getElementById('anon-check').checked?'Anonymous':name,amount:amount,frequency:selectedFreq,purpose:selectedPurpose,status:'completed',created_at:new Date().toISOString()};
+  DB.donors.push(donor); DB.donations.push(donation);
+  document.getElementById('donate-form-wrap').style.display='none';
+  document.getElementById('donate-success').style.display='flex';
+}
+
+var joinType='volunteer';
+function setJoinType(t) {
+  joinType=t;
+  var vBtn=document.getElementById('jtype-volunteer'), cBtn=document.getElementById('jtype-corporate');
+  vBtn.classList.toggle('active',t==='volunteer'); cBtn.classList.toggle('active',t==='corporate');
+  if (t==='volunteer') { vBtn.style.borderColor='var(--amber)'; vBtn.style.color='var(--amber)'; vBtn.style.background='var(--amber-bg)'; cBtn.style.borderColor=''; cBtn.style.color=''; cBtn.style.background=''; }
+  else { cBtn.style.borderColor='var(--teal)'; cBtn.style.color='var(--teal)'; cBtn.style.background='var(--teal-bg)'; vBtn.style.borderColor=''; vBtn.style.color=''; vBtn.style.background=''; }
+  document.getElementById('join-volunteer-fields').style.display=t==='volunteer'?'block':'none';
+  document.getElementById('join-corporate-fields').style.display=t==='corporate'?'block':'none';
+}
+function submitJoin() {
+  var name=document.getElementById('join-name').value.trim();
+  var email=document.getElementById('join-email').value.trim();
+  if (!name||!email) { showError('join-error','join-error-msg','Name and email are required.'); return; }
+  var skills=Array.from(document.querySelectorAll('#skills-tags .tag.active')).map(function(t){return t.textContent;});
+  var avail=Array.from(document.querySelectorAll('#avail-tags .tag.active')).map(function(t){return t.textContent;});
+  var langs=Array.from(document.querySelectorAll('#lang-tags .tag.active')).map(function(t){return t.textContent;});
+  DB.volunteers.push({id:'vol_'+Date.now(),name:name,email:email,city:document.getElementById('join-city').value,state:document.getElementById('join-state').value,skills:skills,availability:avail,languages:langs,created_at:new Date().toISOString()});
+  document.getElementById('join-form-wrap').style.display='none';
+  document.getElementById('join-success').style.display='flex';
+}
+
+function initAdmin() {
+  var total=DB.donations.reduce(function(s,d){return s+(d.amount||0);},0);
+  document.getElementById('st-requests').textContent=DB.help_requests.length;
+  document.getElementById('st-pending').textContent=DB.help_requests.filter(function(r){return r.status==='pending';}).length;
+  document.getElementById('st-volunteers').textContent=DB.volunteers.length;
+  document.getElementById('st-donations').textContent='A$'+total.toLocaleString();
+  var empty='<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">No data yet</td></tr>';
+  document.getElementById('requests-tbody').innerHTML = DB.help_requests.length===0 ? empty :
+    DB.help_requests.map(function(r){return '<tr>'
+      +'<td style="white-space:nowrap">'+new Date(r.created_at).toLocaleDateString()+'</td>'
+      +'<td><span class="u-'+r.urgency_level+'" style="font-weight:600;text-transform:capitalize">'+r.urgency_level+'</span></td>'
+      +'<td style="color:var(--muted)">'+( r.location_address||'—')+'</td>'
+      +'<td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+r.description+'</td>'
+      +'<td style="font-size:12px">'+(r.needs.slice(0,2).join(', ')||'—')+(r.needs.length>2?' +more':'')+'</td>'
+      +'<td><span class="status-badge s-pending">pending</span></td>'
+      +'</tr>';}).join('');
+  document.getElementById('donors-tbody').innerHTML = DB.donations.length===0 ? empty :
+    DB.donations.map(function(d){return '<tr>'
+      +'<td>'+new Date(d.created_at).toLocaleDateString()+'</td>'
+      +'<td>'+d.donor_name+'</td>'
+      +'<td style="color:var(--muted);font-size:12px">'+(DB.donors.find(function(x){return x.id===d.donor_id;})||{}).donor_type+'</td>'
+      +'<td style="color:var(--teal);font-weight:600">$'+d.amount.toLocaleString()+'</td>'
+      +'<td style="font-size:12px;color:var(--muted)">'+d.frequency.replace('_',' ')+'</td>'
+      +'<td><span class="badge badge-teal" style="font-size:11px">'+d.purpose.replace('_',' ')+'</span></td>'
+      +'</tr>';}).join('');
+  document.getElementById('volunteers-tbody').innerHTML = DB.volunteers.length===0 ? empty :
+    DB.volunteers.map(function(v){return '<tr>'
+      +'<td>'+new Date(v.created_at).toLocaleDateString()+'</td>'
+      +'<td style="font-weight:500;color:var(--text)">'+v.name+'</td>'
+      +'<td style="color:var(--muted)">'+[v.city,v.state].filter(Boolean).join(', ')+'</td>'
+      +'<td style="font-size:12px">'+(v.skills.slice(0,2).join(', ')||'—')+(v.skills.length>2?' +more':'')+'</td>'
+      +'<td style="font-size:12px;color:var(--muted)">'+v.languages.join(', ')+'</td>'
+      +'<td><span class="status-badge s-pending">Pending Review</span></td>'
+      +'</tr>';}).join('');
+}
+function adminTab(tab,btn) {
+  ['requests','donors','volunteers'].forEach(function(t){ document.getElementById('admin-'+t).style.display=t===tab?'block':'none'; });
+  document.querySelectorAll('.admin-tab').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active');
+}
+function showError(wid,mid,msg) { document.getElementById(wid).style.display='flex'; document.getElementById(mid).textContent=msg; }
+
+document.getElementById('safe-to-call').addEventListener('change', function() {
+  document.getElementById('contact-time-wrap').style.display=this.checked?'block':'none';
+});
+
+renderResources();
+</script>
+</body>
+</html>
