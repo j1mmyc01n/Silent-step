@@ -4,6 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Silent Step — Support Network</title>
+<meta name="description" content="Silent Step connects domestic violence survivors across Australia with shelters, legal aid, counselling, and 24/7 crisis support." />
+<meta name="theme-color" content="#f43f5e" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Silent Step" />
+<link rel="manifest" href="manifest.json" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
@@ -300,6 +307,37 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 5
 .section-header p { color: var(--muted2); max-width: 480px; margin: 0 auto; font-size: 15px; }
 .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
 
+/* ASKIZZY BANNER */
+.askizzy-banner {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: linear-gradient(135deg, rgba(20,184,166,0.08) 0%, rgba(96,165,250,0.06) 100%);
+  border: 1px solid rgba(20,184,166,0.25);
+  border-radius: 14px; padding: 18px 20px; margin-bottom: 24px;
+}
+.askizzy-banner .ai-icon { font-size: 26px; flex-shrink: 0; }
+.askizzy-banner .ai-body { flex: 1; min-width: 180px; }
+.askizzy-banner .ai-body strong { font-size: 14.5px; color: var(--text); }
+.askizzy-banner .ai-body p { color: var(--muted2); font-size: 12.5px; margin-top: 2px; line-height: 1.5; }
+
+/* LOCATION STATUS BAR */
+.location-status-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: rgba(20,184,166,0.08); border: 1px solid rgba(20,184,166,0.2);
+  border-radius: 10px; padding: 9px 14px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.location-status-bar span { font-size: 13px; color: #5eead4; }
+.location-status-bar button { font-size: 12px; color: var(--muted); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; transition: color .15s; }
+.location-status-bar button:hover { color: var(--text); }
+
+/* PWA INSTALL BANNER */
+#pwa-install-bar {
+  background: linear-gradient(90deg, rgba(20,184,166,0.1), rgba(244,63,94,0.07));
+  border-bottom: 1px solid rgba(20,184,166,0.2);
+  padding: 8px 20px; display: none; align-items: center; justify-content: space-between; gap: 10px;
+}
+#pwa-install-bar p { font-size: 13px; color: var(--muted2); }
+#pwa-install-bar .install-actions { display: flex; gap: 8px; }
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   nav { display: none; }
@@ -325,6 +363,15 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 5
 </style>
 </head>
 <body>
+
+<!-- PWA INSTALL PROMPT -->
+<div id="pwa-install-bar">
+  <p>&#128241; Install Silent Step for quick offline access to crisis resources.</p>
+  <div class="install-actions">
+    <button class="btn btn-teal btn-sm" id="pwa-install-btn">Install App</button>
+    <button class="close-x" onclick="document.getElementById('pwa-install-bar').style.display='none'">&#215;</button>
+  </div>
+</div>
 
 <!-- SAFETY BANNER -->
 <div id="safety-banner">
@@ -618,6 +665,17 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 5
         <h2>Find Resources Near You</h2>
         <p>Verified shelters, hotlines, legal aid, counselling centres, and more — all in one place.</p>
       </div>
+
+      <!-- ASKIZZY FEATURE BANNER -->
+      <div class="askizzy-banner">
+        <div class="ai-icon">&#128269;</div>
+        <div class="ai-body">
+          <strong>Need more local services? Try Ask Izzy</strong>
+          <p>Australia&rsquo;s largest directory of health &amp; welfare services &mdash; 400,000+ listings for housing, food, family violence support, health, legal aid &amp; financial help. Powered by Infoxchange.</p>
+        </div>
+        <a id="askizzy-link" href="https://askizzy.org.au" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="white-space:nowrap;border-color:rgba(20,184,166,0.4);color:#2dd4bf">Open Ask Izzy &#8599;</a>
+      </div>
+
       <div class="search-row">
         <input type="text" class="search-input" id="resource-search" placeholder="Search by name, city, or type..." oninput="filterResources()" />
         <select class="filter-select" id="resource-type-filter" onchange="filterResources()">
@@ -630,8 +688,15 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 5
           <option value="financial">Financial Aid</option>
           <option value="childcare">Childcare</option>
         </select>
-        <button class="btn btn-ghost btn-sm" onclick="locateUser()">&#128205; Near Me</button>
+        <button class="btn btn-ghost btn-sm" id="near-me-btn" onclick="locateUser()">&#128205; Near Me</button>
       </div>
+
+      <!-- LOCATION STATUS BAR (shown after Near Me is activated) -->
+      <div class="location-status-bar" id="location-status-bar" style="display:none">
+        <span>&#128205; Showing resources near <strong id="location-label">your location</strong></span>
+        <button onclick="clearNearMe()">&#215; Clear location filter</button>
+      </div>
+
       <div id="resources-list" class="resources-grid"></div>
     </div>
   </div>
@@ -924,6 +989,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 5
         <button class="footer-link" onclick="showPage('get-help')">Get Help Now</button>
         <button class="footer-link" onclick="showPage('resources')">Find Resources</button>
         <button class="footer-link" onclick="showPage('get-help')">Crisis Support</button>
+        <a href="https://askizzy.org.au" target="_blank" rel="noopener" class="footer-link">&#128269; Ask Izzy</a>
       </div>
       <div>
         <div class="footer-col-title">Get Involved</div>
@@ -951,9 +1017,13 @@ const SAMPLE_RESOURCES = [
   { id:6, name:"Yarrow Place Rape & Sexual Assault Service", type:"medical", city:"Adelaide", state:"SA", phone:"(08) 8226 8787", website:"https://www.yarrowplace.sa.gov.au", description:"24-hour crisis care and medical treatment for people who have experienced sexual assault.", available_24h:true, current_availability:true, accepts_children:true, accepts_pets:false, languages:["English","Arabic","Mandarin"] },
   { id:7, name:"Good Shepherd Australia", type:"financial", city:"National", state:"", phone:"1300 136 898", website:"https://goodshep.org.au", description:"No-interest loans, emergency financial aid, and financial counselling to help survivors rebuild financial independence.", available_24h:false, current_availability:true, accepts_children:false, accepts_pets:false, languages:["English"] },
   { id:8, name:"Dogs & Cats Forever — DV Pet Support", type:"shelter", city:"Perth", state:"WA", phone:"(08) 555-0166", website:"", description:"Emergency pet fostering for survivors, removing the barrier of leaving an abuser due to fear for their animals' safety.", available_24h:false, current_availability:true, accepts_children:true, accepts_pets:true, languages:["English"] },
+  { id:9, name:"Ask Izzy — Find Services Near You", type:"other", city:"National", state:"", phone:"", website:"https://askizzy.org.au", description:"Australia's largest directory of health and welfare services. Search 400,000+ listings for housing, food, family violence support, health, legal, financial help, and more. Powered by Infoxchange. Enter your location on Ask Izzy to find what's available near you.", available_24h:false, current_availability:true, accepts_children:true, accepts_pets:false, languages:["English","+ many via interpreter"], featured:true },
+  { id:10, name:"DVConnect Womensline (QLD)", type:"hotline", city:"Brisbane", state:"QLD", phone:"1800 811 811", website:"https://www.dvconnect.org", description:"Queensland's specialist 24/7 domestic violence helpline providing crisis support, safety planning, and referrals to local shelters.", available_24h:true, current_availability:true, accepts_children:false, accepts_pets:false, languages:["English","+ via interpreter"] },
+  { id:11, name:"Domestic Violence Crisis Service (ACT)", type:"shelter", city:"Canberra", state:"ACT", phone:"(02) 6280 0900", website:"https://dvcs.org.au", description:"24/7 crisis support, emergency accommodation, and ongoing case management for people escaping domestic and family violence in the ACT.", available_24h:true, current_availability:true, accepts_children:true, accepts_pets:false, languages:["English"] },
+  { id:12, name:"Women's Safety Services SA", type:"shelter", city:"Adelaide", state:"SA", phone:"1800 800 098", website:"https://www.womenssafetyservices.com.au", description:"South Australia's peak body for domestic violence services — 24/7 crisis accommodation, safety planning, and outreach support.", available_24h:true, current_availability:true, accepts_children:true, accepts_pets:false, languages:["English","Arabic","Vietnamese"] },
 ];
 
-const TYPE_LABELS = { shelter:'Shelter', hotline:'Hotline', legal_aid:'Legal Aid', counselling:'Counselling', medical:'Medical', financial:'Financial Aid', childcare:'Childcare', other:'Other' };
+const TYPE_LABELS = { shelter:'Shelter', hotline:'Hotline', legal_aid:'Legal Aid', counselling:'Counselling', medical:'Medical', financial:'Financial Aid', childcare:'Childcare', other:'Other Services' };
 const TYPE_COLORS = { shelter:'rose', hotline:'red', legal_aid:'blue', counselling:'teal', medical:'green', financial:'amber', childcare:'orange', other:'slate' };
 const colorMap = { rose:'#fb7185', red:'#f87171', blue:'#93c5fd', teal:'#2dd4bf', green:'#4ade80', amber:'#fcd34d', orange:'#fb923c', slate:'#94a3b8' };
 const bgMap = { rose:'rgba(244,63,94,0.1)', red:'rgba(248,113,113,0.1)', blue:'rgba(96,165,250,0.1)', teal:'rgba(20,184,166,0.1)', green:'rgba(34,197,94,0.1)', amber:'rgba(245,158,11,0.1)', orange:'rgba(249,115,22,0.1)', slate:'rgba(100,116,139,0.1)' };
@@ -978,6 +1048,34 @@ document.addEventListener('keydown', e => { if (e.key==='Escape') quickExit(); }
 
 let selectedUrgency = 'high';
 let locLat = null, locLng = null;
+let userState = '', userSuburb = '', nearMeActive = false;
+
+/* Map Nominatim state names → Australian abbreviations */
+function australianStateFromNominatim(stateName) {
+  if (!stateName) return '';
+  var map = {
+    'New South Wales': 'NSW', 'Victoria': 'VIC', 'Queensland': 'QLD',
+    'South Australia': 'SA', 'Western Australia': 'WA', 'Tasmania': 'TAS',
+    'Australian Capital Territory': 'ACT', 'Northern Territory': 'NT'
+  };
+  return map[stateName] || '';
+}
+
+/* Reverse-geocode lat/lng via Nominatim and return { suburb, state } */
+function reverseGeocode(lat, lng, callback) {
+  fetch(
+    'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lng + '&zoom=12',
+    { headers: { 'Accept-Language': 'en-AU' } }
+  )
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var addr = data.address || {};
+      var suburb = addr.suburb || addr.town || addr.city_district || addr.village || addr.city || '';
+      var state = australianStateFromNominatim(addr.state);
+      callback(suburb, state);
+    })
+    .catch(function () { callback('', ''); });
+}
 
 function selectUrgency(btn, val) {
   document.querySelectorAll('.urgency-btn').forEach(b => b.className='urgency-btn');
@@ -986,22 +1084,85 @@ function selectUrgency(btn, val) {
 }
 function toggleTag(btn) { btn.classList.toggle('active'); }
 
+/* Help form — Use My Location (reverse-geocodes to suburb/state) */
 function getLocation() {
   var btn = document.getElementById('locate-btn');
   btn.innerHTML = '<span class="spinner"></span> Locating...';
   btn.disabled = true;
-  if (!navigator.geolocation) { btn.innerHTML='&#128205; Use My Location'; btn.disabled=false; return; }
+  if (!navigator.geolocation) {
+    btn.innerHTML = '&#128205; Use My Location'; btn.disabled = false; return;
+  }
   navigator.geolocation.getCurrentPosition(
-    function(pos) {
-      locLat=pos.coords.latitude; locLng=pos.coords.longitude;
-      document.getElementById('location-address').value = locLat.toFixed(4)+', '+locLng.toFixed(4);
-      document.getElementById('location-confirmed').style.display='block';
-      btn.innerHTML='&#10003; Location Captured'; btn.disabled=false;
+    function (pos) {
+      locLat = pos.coords.latitude; locLng = pos.coords.longitude;
+      reverseGeocode(locLat, locLng, function (suburb, state) {
+        var display = suburb
+          ? (suburb + (state ? ', ' + state : ''))
+          : (locLat.toFixed(4) + ', ' + locLng.toFixed(4));
+        document.getElementById('location-address').value = display;
+        document.getElementById('location-confirmed').style.display = 'block';
+        btn.innerHTML = '&#10003; Location Captured'; btn.disabled = false;
+        /* Also update AskIzzy link with suburb if we have it */
+        updateAskIzzyLink(suburb || display);
+      });
     },
-    function() { btn.innerHTML='&#128205; Use My Location'; btn.disabled=false; }
+    function () { btn.innerHTML = '&#128205; Use My Location'; btn.disabled = false; }
   );
 }
-function locateUser() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(){}); }
+
+/* Resources page — Near Me button */
+function locateUser() {
+  var btn = document.getElementById('near-me-btn');
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser. Try typing your suburb in the search box.');
+    return;
+  }
+  btn.innerHTML = '<span class="spinner"></span> Locating...'; btn.disabled = true;
+  navigator.geolocation.getCurrentPosition(
+    function (pos) {
+      locLat = pos.coords.latitude; locLng = pos.coords.longitude;
+      reverseGeocode(locLat, locLng, function (suburb, state) {
+        userSuburb = suburb; userState = state;
+        nearMeActive = true;
+        var label = suburb ? (suburb + (state ? ', ' + state : '')) : (state || 'your location');
+        document.getElementById('location-label').textContent = label;
+        document.getElementById('location-status-bar').style.display = 'flex';
+        btn.innerHTML = '&#10003; ' + (suburb || state || 'Near Me'); btn.disabled = false;
+        updateAskIzzyLink(suburb || state || '');
+        renderResources();
+      });
+    },
+    function (err) {
+      btn.innerHTML = '&#128205; Near Me'; btn.disabled = false;
+      var messages = {
+        1: 'Location permission was denied. You can type your suburb in the search box to filter resources manually.',
+        2: 'Your location could not be determined. Please enter your suburb in the search box.',
+        3: 'Location request timed out. Please try again or enter your suburb manually.'
+      };
+      alert(messages[err.code] || 'Location unavailable. Please enter your suburb in the search box.');
+    }
+  );
+}
+
+function clearNearMe() {
+  nearMeActive = false; userState = ''; userSuburb = '';
+  document.getElementById('location-status-bar').style.display = 'none';
+  var btn = document.getElementById('near-me-btn');
+  if (btn) { btn.innerHTML = '&#128205; Near Me'; btn.disabled = false; }
+  updateAskIzzyLink('');
+  renderResources();
+}
+
+/* Update AskIzzy link with pre-filled location when known */
+function updateAskIzzyLink(location) {
+  var link = document.getElementById('askizzy-link');
+  if (!link) return;
+  if (location) {
+    link.href = 'https://askizzy.org.au/search/?q=family+violence&location=' + encodeURIComponent(location);
+  } else {
+    link.href = 'https://askizzy.org.au';
+  }
+}
 
 function submitHelp() {
   var desc = document.getElementById('help-description').value.trim();
@@ -1028,17 +1189,35 @@ function renderResources() {
   var filtered = SAMPLE_RESOURCES.filter(function(r) {
     var ms = !search || r.name.toLowerCase().includes(search) || r.city.toLowerCase().includes(search) || r.description.toLowerCase().includes(search);
     var mt = type==='all' || r.type===type;
-    return ms && mt;
+    /* Location filter: national resources (state='') always show; state-specific only show when state matches */
+    var ml = !nearMeActive || !userState || r.state==='' || r.state===userState;
+    return ms && mt && ml;
   });
+  /* Sort: state-matching resources first, then national */
+  if (nearMeActive && userState) {
+    filtered.sort(function(a, b) {
+      var aLocal = a.state === userState ? 0 : 1;
+      var bLocal = b.state === userState ? 0 : 1;
+      return aLocal - bLocal;
+    });
+  }
   var list = document.getElementById('resources-list');
-  if (!filtered.length) { list.innerHTML='<div style="color:var(--muted);padding:32px 0;grid-column:1/-1;text-align:center">No resources found.</div>'; return; }
+  if (!filtered.length) {
+    list.innerHTML = '<div style="color:var(--muted);padding:32px 0;grid-column:1/-1;text-align:center">'
+      + 'No resources found'+(nearMeActive&&userState?' in '+userState+'. <button onclick="clearNearMe()" style="color:var(--teal);text-decoration:underline;background:none;border:none;cursor:pointer">Show all locations</button>':'.')
+      + '</div>';
+    return;
+  }
   list.innerHTML = filtered.map(function(r) {
     var c = TYPE_COLORS[r.type]||'slate';
-    return '<div class="card resource-card">'
+    var featuredBorder = r.featured ? 'border-color:rgba(20,184,166,0.4);' : '';
+    return '<div class="card resource-card" style="'+featuredBorder+'">'
       +'<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">'
       +'<div style="flex:1"><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px">'
       +'<span style="background:'+bgMap[c]+';color:'+colorMap[c]+';border:1px solid '+colorMap[c]+'30;padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600">'+TYPE_LABELS[r.type]+'</span>'
       +(r.available_24h?'<span style="background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2);padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600">24/7</span>':'')
+      +(r.featured?'<span style="background:rgba(20,184,166,0.1);color:#2dd4bf;border:1px solid rgba(20,184,166,0.25);padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600">&#128269; Featured</span>':'')
+      +(nearMeActive&&r.state&&r.state===userState?'<span style="background:rgba(34,197,94,0.08);color:#4ade80;border:1px solid rgba(34,197,94,0.2);padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600">&#128205; Local</span>':'')
       +'</div><h3 style="font-size:1rem;font-family:\'DM Serif Display\',serif;line-height:1.3">'+r.name+'</h3></div>'
       +'<div class="availability-dot'+(r.current_availability?'':' offline')+'"></div></div>'
       +'<p style="color:var(--muted2);font-size:13px;line-height:1.65;margin-bottom:12px">'+r.description+'</p>'
@@ -1155,6 +1334,38 @@ function showError(wid,mid,msg) { document.getElementById(wid).style.display='fl
 
 document.getElementById('safe-to-call').addEventListener('change', function() {
   document.getElementById('contact-time-wrap').style.display=this.checked?'block':'none';
+});
+
+/* ── PWA: service worker registration ── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function (err) {
+      console.warn('Silent Step: Service worker registration failed', err);
+    });
+  });
+}
+
+/* ── PWA: install prompt ── */
+var deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', function (e) {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  var bar = document.getElementById('pwa-install-bar');
+  if (bar) bar.style.display = 'flex';
+});
+document.getElementById('pwa-install-btn').addEventListener('click', function () {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.then(function () {
+    deferredInstallPrompt = null;
+    var bar = document.getElementById('pwa-install-bar');
+    if (bar) bar.style.display = 'none';
+  });
+});
+window.addEventListener('appinstalled', function () {
+  var bar = document.getElementById('pwa-install-bar');
+  if (bar) bar.style.display = 'none';
+  deferredInstallPrompt = null;
 });
 
 renderResources();
