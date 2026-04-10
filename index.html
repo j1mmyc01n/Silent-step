@@ -468,12 +468,12 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 5
       <div class="grid-2" style="gap:48px;align-items:start">
         <div class="card" style="padding:36px">
           <div class="section-eyebrow">The Problem</div>
-          <h2 style="font-size:1.8rem;margin-bottom:16px">The Problem</h2>
+          <h2 style="font-size:1.8rem;margin-bottom:16px">When Calling Isn&rsquo;t Safe</h2>
           <p style="color:var(--muted2);line-height:1.8">In high-risk situations, people are not always able to call or speak safely. Attempting to use a phone may increase danger, and in many cases, no alert is sent at all. This means no one knows help is needed.</p>
         </div>
         <div class="card" style="padding:36px;border-color:rgba(20,184,166,0.25)">
           <div class="section-eyebrow" style="color:var(--teal)">The Solution</div>
-          <h2 style="font-size:1.8rem;margin-bottom:16px">The Solution</h2>
+          <h2 style="font-size:1.8rem;margin-bottom:16px">A Silent Alert That Works</h2>
           <p style="color:var(--muted2);line-height:1.8">Silent Step allows a user to trigger an emergency alert discreetly. With a hidden action, the app sends an urgent message with the user's location to trusted contacts. Those contacts are clearly instructed to contact emergency services immediately.</p>
         </div>
       </div>
@@ -1210,6 +1210,10 @@ const TYPE_COLORS = { shelter:'rose', hotline:'red', legal_aid:'blue', counselli
 const colorMap = { rose:'#fb7185', red:'#f87171', blue:'#93c5fd', teal:'#2dd4bf', green:'#4ade80', amber:'#fcd34d', orange:'#fb923c', slate:'#94a3b8' };
 const bgMap = { rose:'rgba(244,63,94,0.1)', red:'rgba(248,113,113,0.1)', blue:'rgba(96,165,250,0.1)', teal:'rgba(20,184,166,0.1)', green:'rgba(34,197,94,0.1)', amber:'rgba(245,158,11,0.1)', orange:'rgba(249,115,22,0.1)', slate:'rgba(100,116,139,0.1)' };
 
+function closeMobile() {
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
@@ -1222,9 +1226,6 @@ function showPage(id) {
 
 function toggleMobile() {
   document.getElementById('mobile-nav').classList.toggle('open');
-}
-function closeMobile() {
-  document.getElementById('mobile-nav').classList.remove('open');
 }
 
 function quickExit() {
